@@ -1,0 +1,21 @@
+{
+    "raspianoApp": {
+        "raspberry" : {
+            "home": {
+                "title": "Raspberries",
+                "createLabel": "Create a new Raspberry",
+                "createOrEditLabel": "Create or edit a Raspberry"
+            },
+            "created": "A new Raspberry is created with identifier {{ param }}",
+            "updated": "A Raspberry is updated with identifier {{ param }}",
+            "deleted": "A Raspberry is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Raspberry {{ id }}?"
+            },
+            "detail": {
+                "title": "Raspberry"
+            },
+            "name": "Name"
+        }
+    }
+}

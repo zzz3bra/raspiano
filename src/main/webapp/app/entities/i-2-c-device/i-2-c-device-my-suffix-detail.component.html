@@ -1,0 +1,39 @@
+
+<div *ngIf="i2cDevice">
+    <h2><span jhiTranslate="raspianoApp.i2cDevice.detail.title">I 2 C Device</span> {{i2cDevice.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="raspianoApp.i2cDevice.deviceType">Device Type</span></dt>
+        <dd>
+            <span jhiTranslate="{{'raspianoApp.DeviceType.' + i2cDevice.deviceType}}">{{i2cDevice.deviceType}}</span>
+        </dd>
+        <dt><span jhiTranslate="raspianoApp.i2cDevice.busAddress">Bus Address</span></dt>
+        <dd>
+            <span>{{i2cDevice.busAddress}}</span>
+        </dd>
+        <dt><span jhiTranslate="raspianoApp.i2cDevice.name">Name</span></dt>
+        <dd>
+            <span>{{i2cDevice.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="raspianoApp.i2cDevice.device">Device</span></dt>
+        <dd>
+            <div *ngIf="i2cDevice.deviceId">
+                <a [routerLink]="['/raspberry-my-suffix', i2cDevice.deviceId]">{{i2cDevice.deviceId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'i-2-c-device-my-suffix/'+ i2cDevice.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

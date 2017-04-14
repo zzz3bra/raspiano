@@ -7,6 +7,13 @@
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Сущности",
+                "climateMySuffix": "Climate",
+                "i2CDeviceMySuffix": "I 2 C Device",
+                "i2CSensorMySuffix": "I 2 C Sensor",
+                "i2CControllerMySuffix": "I 2 C Controller",
+                "controllerActonMySuffix": "Controller Acton",
+                "raspberryMySuffix": "Raspberry",
+                "measurementMySuffix": "Measurement",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

@@ -1,0 +1,25 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "sensorType",
+            "fieldType": "SensorType",
+            "fieldValues": "TEMPERATURE,HUMIDITY"
+        },
+        {
+            "fieldName": "minSensivity",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "maxSensivity",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20170414170243",
+    "entityTableName": "i_2_c_sensor",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "angularJSSuffix": "mySuffix"
+}

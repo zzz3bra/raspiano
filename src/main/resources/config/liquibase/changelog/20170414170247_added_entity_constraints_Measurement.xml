@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity Measurement.
+    -->
+    <changeSet id="20170414170247-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="source_id"
+                                 baseTableName="measurement"
+                                 constraintName="fk_measurement_source_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="i_2_c_sensor"/>
+
+        <addForeignKeyConstraint baseColumnNames="data_history_id"
+                                 baseTableName="measurement"
+                                 constraintName="fk_measurement_data_history_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="climate"/>
+
+    </changeSet>
+</databaseChangeLog>

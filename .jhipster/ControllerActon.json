@@ -1,0 +1,33 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "controller",
+            "otherEntityName": "i2cController",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "actionHistory",
+            "otherEntityName": "climate",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "actionStart",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "actionEnd",
+            "fieldType": "ZonedDateTime"
+        }
+    ],
+    "changelogDate": "20170414170245",
+    "entityTableName": "controller_acton",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "angularJSSuffix": "mySuffix"
+}

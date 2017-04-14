@@ -1,0 +1,24 @@
+{
+    "raspianoApp": {
+        "i2cDevice" : {
+            "home": {
+                "title": "I 2 C Devices",
+                "createLabel": "Create a new I 2 C Device",
+                "createOrEditLabel": "Create or edit a I 2 C Device"
+            },
+            "created": "A new I 2 C Device is created with identifier {{ param }}",
+            "updated": "A I 2 C Device is updated with identifier {{ param }}",
+            "deleted": "A I 2 C Device is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete I 2 C Device {{ id }}?"
+            },
+            "detail": {
+                "title": "I 2 C Device"
+            },
+            "deviceType": "Device Type",
+            "busAddress": "Bus Address",
+            "name": "Name",
+            "device": "Device"
+        }
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "raspianoApp": {
+        "climate" : {
+            "home": {
+                "title": "Climates",
+                "createLabel": "Create a new Climate",
+                "createOrEditLabel": "Create or edit a Climate"
+            },
+            "created": "A new Climate is created with identifier {{ param }}",
+            "updated": "A Climate is updated with identifier {{ param }}",
+            "deleted": "A Climate is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Climate {{ id }}?"
+            },
+            "detail": {
+                "title": "Climate"
+            },
+            "minDesiredTemperature": "Min Desired Temperature",
+            "maxDesiredTemperature": "Max Desired Temperature",
+            "minDesiredHumidity": "Min Desired Humidity",
+            "maxDesiredHumidity": "Max Desired Humidity"
+        }
+    }
+}

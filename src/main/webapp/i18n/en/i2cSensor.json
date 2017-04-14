@@ -1,0 +1,23 @@
+{
+    "raspianoApp": {
+        "i2cSensor" : {
+            "home": {
+                "title": "I 2 C Sensors",
+                "createLabel": "Create a new I 2 C Sensor",
+                "createOrEditLabel": "Create or edit a I 2 C Sensor"
+            },
+            "created": "A new I 2 C Sensor is created with identifier {{ param }}",
+            "updated": "A I 2 C Sensor is updated with identifier {{ param }}",
+            "deleted": "A I 2 C Sensor is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete I 2 C Sensor {{ id }}?"
+            },
+            "detail": {
+                "title": "I 2 C Sensor"
+            },
+            "sensorType": "Sensor Type",
+            "minSensivity": "Min Sensivity",
+            "maxSensivity": "Max Sensivity"
+        }
+    }
+}

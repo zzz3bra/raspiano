@@ -42,6 +42,13 @@ public class CacheConfiguration {
             cm.createCache(by.bru.raspiano.domain.User.class.getName() + ".authorities", jcacheConfiguration);
             cm.createCache(by.bru.raspiano.domain.PersistentToken.class.getName(), jcacheConfiguration);
             cm.createCache(by.bru.raspiano.domain.User.class.getName() + ".persistentTokens", jcacheConfiguration);
+            cm.createCache(by.bru.raspiano.domain.Climate.class.getName(), jcacheConfiguration);
+            cm.createCache(by.bru.raspiano.domain.I2cDevice.class.getName(), jcacheConfiguration);
+            cm.createCache(by.bru.raspiano.domain.I2cSensor.class.getName(), jcacheConfiguration);
+            cm.createCache(by.bru.raspiano.domain.I2cController.class.getName(), jcacheConfiguration);
+            cm.createCache(by.bru.raspiano.domain.ControllerActon.class.getName(), jcacheConfiguration);
+            cm.createCache(by.bru.raspiano.domain.Raspberry.class.getName(), jcacheConfiguration);
+            cm.createCache(by.bru.raspiano.domain.Measurement.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

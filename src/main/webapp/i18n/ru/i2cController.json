@@ -1,0 +1,23 @@
+{
+    "raspianoApp": {
+        "i2cController" : {
+            "home": {
+                "title": "I 2 C Controllers",
+                "createLabel": "Создать новый I 2 C Controller",
+                "createOrEditLabel": "Создать или отредактировать I 2 C Controller"
+            },
+            "created": "Новый I 2 C Controller создан с идентификатором {{ param }}",
+            "updated": "I 2 C Controller обновлен с идентификатором {{ param }}",
+            "deleted": "I 2 C Controller удален с идентификатором {{ param }}",
+            "delete": {
+                "question": "Вы уверены что хотите удалить I 2 C Controller {{ id }}?"
+            },
+            "detail": {
+                "title": "I 2 C Controller"
+            },
+            "controllerType": "Controller Type",
+            "turnOffDelayMs": "Turn Off Delay Ms",
+            "turnOnDelayMs": "Turn On Delay Ms"
+        }
+    }
+}

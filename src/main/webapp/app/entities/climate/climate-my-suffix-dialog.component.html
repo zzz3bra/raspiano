@@ -1,0 +1,49 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myClimateLabel" jhiTranslate="raspianoApp.climate.home.createOrEditLabel">Create or edit a Climate</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!climate.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="climate.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="raspianoApp.climate.minDesiredTemperature" for="field_minDesiredTemperature">Min Desired Temperature</label>
+            <input type="number" class="form-control" name="minDesiredTemperature" id="field_minDesiredTemperature"
+                [(ngModel)]="climate.minDesiredTemperature"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="raspianoApp.climate.maxDesiredTemperature" for="field_maxDesiredTemperature">Max Desired Temperature</label>
+            <input type="number" class="form-control" name="maxDesiredTemperature" id="field_maxDesiredTemperature"
+                [(ngModel)]="climate.maxDesiredTemperature"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="raspianoApp.climate.minDesiredHumidity" for="field_minDesiredHumidity">Min Desired Humidity</label>
+            <input type="number" class="form-control" name="minDesiredHumidity" id="field_minDesiredHumidity"
+                [(ngModel)]="climate.minDesiredHumidity"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="raspianoApp.climate.maxDesiredHumidity" for="field_maxDesiredHumidity">Max Desired Humidity</label>
+            <input type="number" class="form-control" name="maxDesiredHumidity" id="field_maxDesiredHumidity"
+                [(ngModel)]="climate.maxDesiredHumidity"
+             />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

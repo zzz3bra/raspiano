@@ -1,0 +1,64 @@
+entity Climate {
+	minDesiredTemperature Integer,
+    maxDesiredTemperature Integer,
+    minDesiredHumidity Integer,
+    maxDesiredHumidity Integer
+}
+
+entity I2cDevice {
+	deviceType DeviceType,
+	busAddress Integer,
+    name String
+}
+
+entity I2cSensor {
+	sensorType SensorType,
+    minSensivity Integer,
+    maxSensivity Integer
+}
+
+entity I2cController {
+	controllerType ControllerType,
+    turnOffDelayMs Integer,
+    turnOnDelayMs Integer
+}
+
+entity ControllerActon {
+	actionStart ZonedDateTime,
+    actionEnd ZonedDateTime
+}
+
+entity Raspberry {
+	name String
+}
+
+entity Measurement {
+	dateTime ZonedDateTime,
+    value Integer
+}
+
+enum SensorType {
+	TEMPERATURE, HUMIDITY
+}
+
+enum ControllerType {
+	MOTOR, VALVE
+}
+
+enum DeviceType {
+	SENSOR, CONTROLLER
+}
+
+relationship ManyToOne {
+    ControllerActon{controller} to I2cController,
+    Measurement{source} to I2cSensor,
+	Measurement{dataHistory} to Climate,
+    ControllerActon{actionHistory} to Climate,
+   	I2cDevice{device} to Raspberry
+}
+
+dto * with mapstruct
+
+service all with serviceImpl
+
+angularSuffix * with mySuffix

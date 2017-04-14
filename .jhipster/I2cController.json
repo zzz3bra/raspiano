@@ -1,0 +1,25 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "controllerType",
+            "fieldType": "ControllerType",
+            "fieldValues": "MOTOR,VALVE"
+        },
+        {
+            "fieldName": "turnOffDelayMs",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "turnOnDelayMs",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20170414170244",
+    "entityTableName": "i_2_c_controller",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "angularJSSuffix": "mySuffix"
+}

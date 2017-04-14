@@ -1,0 +1,24 @@
+{
+    "raspianoApp": {
+        "measurement" : {
+            "home": {
+                "title": "Measurements",
+                "createLabel": "Создать новый Measurement",
+                "createOrEditLabel": "Создать или отредактировать Measurement"
+            },
+            "created": "Новый Measurement создан с идентификатором {{ param }}",
+            "updated": "Measurement обновлен с идентификатором {{ param }}",
+            "deleted": "Measurement удален с идентификатором {{ param }}",
+            "delete": {
+                "question": "Вы уверены что хотите удалить Measurement {{ id }}?"
+            },
+            "detail": {
+                "title": "Measurement"
+            },
+            "dateTime": "Date Time",
+            "value": "Value",
+            "source": "Source",
+            "dataHistory": "Data History"
+        }
+    }
+}

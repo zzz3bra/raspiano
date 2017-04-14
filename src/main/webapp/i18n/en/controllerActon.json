@@ -1,0 +1,24 @@
+{
+    "raspianoApp": {
+        "controllerActon" : {
+            "home": {
+                "title": "Controller Actons",
+                "createLabel": "Create a new Controller Acton",
+                "createOrEditLabel": "Create or edit a Controller Acton"
+            },
+            "created": "A new Controller Acton is created with identifier {{ param }}",
+            "updated": "A Controller Acton is updated with identifier {{ param }}",
+            "deleted": "A Controller Acton is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Controller Acton {{ id }}?"
+            },
+            "detail": {
+                "title": "Controller Acton"
+            },
+            "actionStart": "Action Start",
+            "actionEnd": "Action End",
+            "controller": "Controller",
+            "actionHistory": "Action History"
+        }
+    }
+}

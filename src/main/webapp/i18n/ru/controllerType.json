@@ -1,0 +1,9 @@
+{
+    "raspianoApp": {
+        "ControllerType" : {
+            "null": "",
+            "MOTOR": "MOTOR",
+            "VALVE": "VALVE"
+        }
+    }
+}

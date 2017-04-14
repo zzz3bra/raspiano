@@ -1,0 +1,60 @@
+<div>
+    <h2>
+        <span jhiTranslate="raspianoApp.i2cController.home.title">I 2 C Controllers</span>
+        <button class="btn btn-primary float-right create-i-2-c-controller-my-suffix" [routerLink]="['/', { outlets: { popup: ['i-2-c-controller-my-suffix-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="raspianoApp.i2cController.home.createLabel">
+            Create new I 2 C Controller
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="i2cControllers">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="raspianoApp.i2cController.controllerType">Controller Type</span></th>
+            <th><span jhiTranslate="raspianoApp.i2cController.turnOffDelayMs">Turn Off Delay Ms</span></th>
+            <th><span jhiTranslate="raspianoApp.i2cController.turnOnDelayMs">Turn On Delay Ms</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let i2cController of i2cControllers ;trackBy: trackId">
+                <td><a [routerLink]="['../i-2-c-controller-my-suffix', i2cController.id ]">{{i2cController.id}}</a></td>
+                <td jhiTranslate="{{'raspianoApp.ControllerType.' + i2cController.controllerType}}">{{i2cController.controllerType}}</td>
+                <td>{{i2cController.turnOffDelayMs}}</td>
+                <td>{{i2cController.turnOnDelayMs}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../i-2-c-controller-my-suffix', i2cController.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'i-2-c-controller-my-suffix/'+ i2cController.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'i-2-c-controller-my-suffix/'+ i2cController.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

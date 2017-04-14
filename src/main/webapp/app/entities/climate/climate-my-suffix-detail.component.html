@@ -1,0 +1,37 @@
+
+<div *ngIf="climate">
+    <h2><span jhiTranslate="raspianoApp.climate.detail.title">Climate</span> {{climate.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="raspianoApp.climate.minDesiredTemperature">Min Desired Temperature</span></dt>
+        <dd>
+            <span>{{climate.minDesiredTemperature}}</span>
+        </dd>
+        <dt><span jhiTranslate="raspianoApp.climate.maxDesiredTemperature">Max Desired Temperature</span></dt>
+        <dd>
+            <span>{{climate.maxDesiredTemperature}}</span>
+        </dd>
+        <dt><span jhiTranslate="raspianoApp.climate.minDesiredHumidity">Min Desired Humidity</span></dt>
+        <dd>
+            <span>{{climate.minDesiredHumidity}}</span>
+        </dd>
+        <dt><span jhiTranslate="raspianoApp.climate.maxDesiredHumidity">Max Desired Humidity</span></dt>
+        <dd>
+            <span>{{climate.maxDesiredHumidity}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'climate-my-suffix/'+ climate.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

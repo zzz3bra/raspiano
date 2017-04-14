@@ -1,0 +1,9 @@
+{
+    "raspianoApp": {
+        "DeviceType" : {
+            "null": "",
+            "SENSOR": "SENSOR",
+            "CONTROLLER": "CONTROLLER"
+        }
+    }
+}

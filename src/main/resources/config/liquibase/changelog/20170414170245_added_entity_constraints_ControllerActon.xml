@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity ControllerActon.
+    -->
+    <changeSet id="20170414170245-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="controller_id"
+                                 baseTableName="controller_acton"
+                                 constraintName="fk_controller_acton_controller_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="i_2_c_controller"/>
+
+        <addForeignKeyConstraint baseColumnNames="action_history_id"
+                                 baseTableName="controller_acton"
+                                 constraintName="fk_controller_acton_action_history_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="climate"/>
+
+    </changeSet>
+</databaseChangeLog>

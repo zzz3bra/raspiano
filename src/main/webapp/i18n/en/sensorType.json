@@ -1,0 +1,9 @@
+{
+    "raspianoApp": {
+        "SensorType" : {
+            "null": "",
+            "TEMPERATURE": "TEMPERATURE",
+            "HUMIDITY": "HUMIDITY"
+        }
+    }
+}

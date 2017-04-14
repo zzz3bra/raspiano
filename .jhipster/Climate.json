@@ -1,0 +1,28 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "minDesiredTemperature",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "maxDesiredTemperature",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "minDesiredHumidity",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "maxDesiredHumidity",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20170414170241",
+    "entityTableName": "climate",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "angularJSSuffix": "mySuffix"
+}
