@@ -48,18 +48,14 @@ i2cDevices: I2cDeviceMySuffix[];
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    trackId (index: number, item: I2cDeviceMySuffix) {
+    trackId(index: number, item: I2cDeviceMySuffix) {
         return item.id;
     }
-
-
-
     registerChangeInI2cDevices() {
         this.eventSubscriber = this.eventManager.subscribe('i2cDeviceListModification', (response) => this.loadAll());
     }
 
-
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 }

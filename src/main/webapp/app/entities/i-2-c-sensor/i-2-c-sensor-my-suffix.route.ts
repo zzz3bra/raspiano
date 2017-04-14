@@ -11,7 +11,6 @@ import { I2cSensorMySuffixDeletePopupComponent } from './i-2-c-sensor-my-suffix-
 
 import { Principal } from '../../shared';
 
-
 export const i2cSensorRoute: Routes = [
   {
     path: 'i-2-c-sensor-my-suffix',

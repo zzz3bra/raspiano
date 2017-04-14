@@ -48,18 +48,14 @@ controllerActons: ControllerActonMySuffix[];
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    trackId (index: number, item: ControllerActonMySuffix) {
+    trackId(index: number, item: ControllerActonMySuffix) {
         return item.id;
     }
-
-
-
     registerChangeInControllerActons() {
         this.eventSubscriber = this.eventManager.subscribe('controllerActonListModification', (response) => this.loadAll());
     }
 
-
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 }

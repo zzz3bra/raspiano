@@ -26,14 +26,14 @@ export class ClimateMySuffixDetailComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.subscription = this.route.params.subscribe(params => {
+        this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });
         this.registerChangeInClimates();
     }
 
-    load (id) {
-        this.climateService.find(id).subscribe(climate => {
+    load(id) {
+        this.climateService.find(id).subscribe((climate) => {
             this.climate = climate;
         });
     }
@@ -47,7 +47,6 @@ export class ClimateMySuffixDetailComponent implements OnInit, OnDestroy {
     }
 
     registerChangeInClimates() {
-        this.eventSubscriber = this.eventManager.subscribe('climateListModification', response => this.load(this.climate.id));
+        this.eventSubscriber = this.eventManager.subscribe('climateListModification', (response) => this.load(this.climate.id));
     }
-
 }

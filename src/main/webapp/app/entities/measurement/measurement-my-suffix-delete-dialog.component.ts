@@ -25,12 +25,12 @@ export class MeasurementMySuffixDeleteDialogComponent {
         this.jhiLanguageService.setLocations(['measurement']);
     }
 
-    clear () {
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete (id: number) {
-        this.measurementService.delete(id).subscribe(response => {
+    confirmDelete(id: number) {
+        this.measurementService.delete(id).subscribe((response) => {
             this.eventManager.broadcast({
                 name: 'measurementListModification',
                 content: 'Deleted an measurement'
@@ -49,13 +49,13 @@ export class MeasurementMySuffixDeletePopupComponent implements OnInit, OnDestro
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
+    constructor(
         private route: ActivatedRoute,
         private measurementPopupService: MeasurementMySuffixPopupService
     ) {}
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.measurementPopupService
                 .open(MeasurementMySuffixDeleteDialogComponent, params['id']);
         });

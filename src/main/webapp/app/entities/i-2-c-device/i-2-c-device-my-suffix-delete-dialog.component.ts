@@ -25,12 +25,12 @@ export class I2cDeviceMySuffixDeleteDialogComponent {
         this.jhiLanguageService.setLocations(['i2cDevice', 'deviceType']);
     }
 
-    clear () {
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete (id: number) {
-        this.i2cDeviceService.delete(id).subscribe(response => {
+    confirmDelete(id: number) {
+        this.i2cDeviceService.delete(id).subscribe((response) => {
             this.eventManager.broadcast({
                 name: 'i2cDeviceListModification',
                 content: 'Deleted an i2cDevice'
@@ -49,13 +49,13 @@ export class I2cDeviceMySuffixDeletePopupComponent implements OnInit, OnDestroy 
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
+    constructor(
         private route: ActivatedRoute,
         private i2cDevicePopupService: I2cDeviceMySuffixPopupService
     ) {}
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.i2cDevicePopupService
                 .open(I2cDeviceMySuffixDeleteDialogComponent, params['id']);
         });

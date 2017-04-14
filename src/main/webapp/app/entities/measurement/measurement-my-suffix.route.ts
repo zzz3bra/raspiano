@@ -11,7 +11,6 @@ import { MeasurementMySuffixDeletePopupComponent } from './measurement-my-suffix
 
 import { Principal } from '../../shared';
 
-
 export const measurementRoute: Routes = [
   {
     path: 'measurement-my-suffix',

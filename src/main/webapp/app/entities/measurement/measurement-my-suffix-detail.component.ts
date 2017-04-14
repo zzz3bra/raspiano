@@ -26,14 +26,14 @@ export class MeasurementMySuffixDetailComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.subscription = this.route.params.subscribe(params => {
+        this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });
         this.registerChangeInMeasurements();
     }
 
-    load (id) {
-        this.measurementService.find(id).subscribe(measurement => {
+    load(id) {
+        this.measurementService.find(id).subscribe((measurement) => {
             this.measurement = measurement;
         });
     }
@@ -47,7 +47,6 @@ export class MeasurementMySuffixDetailComponent implements OnInit, OnDestroy {
     }
 
     registerChangeInMeasurements() {
-        this.eventSubscriber = this.eventManager.subscribe('measurementListModification', response => this.load(this.measurement.id));
+        this.eventSubscriber = this.eventManager.subscribe('measurementListModification', (response) => this.load(this.measurement.id));
     }
-
 }

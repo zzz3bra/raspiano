@@ -32,11 +32,11 @@ export class RaspberryMySuffixDialogComponent implements OnInit {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
     }
-    clear () {
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    save () {
+    save() {
         this.isSaving = true;
         if (this.raspberry.id !== undefined) {
             this.raspberryService.update(this.raspberry)
@@ -49,13 +49,13 @@ export class RaspberryMySuffixDialogComponent implements OnInit {
         }
     }
 
-    private onSaveSuccess (result: RaspberryMySuffix) {
+    private onSaveSuccess(result: RaspberryMySuffix) {
         this.eventManager.broadcast({ name: 'raspberryListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError (error) {
+    private onSaveError(error) {
         try {
             error.json();
         } catch (exception) {
@@ -65,7 +65,7 @@ export class RaspberryMySuffixDialogComponent implements OnInit {
         this.onError(error);
     }
 
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 }
@@ -79,13 +79,13 @@ export class RaspberryMySuffixPopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
+    constructor(
         private route: ActivatedRoute,
         private raspberryPopupService: RaspberryMySuffixPopupService
     ) {}
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             if ( params['id'] ) {
                 this.modalRef = this.raspberryPopupService
                     .open(RaspberryMySuffixDialogComponent, params['id']);

@@ -32,11 +32,11 @@ export class ClimateMySuffixDialogComponent implements OnInit {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
     }
-    clear () {
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    save () {
+    save() {
         this.isSaving = true;
         if (this.climate.id !== undefined) {
             this.climateService.update(this.climate)
@@ -49,13 +49,13 @@ export class ClimateMySuffixDialogComponent implements OnInit {
         }
     }
 
-    private onSaveSuccess (result: ClimateMySuffix) {
+    private onSaveSuccess(result: ClimateMySuffix) {
         this.eventManager.broadcast({ name: 'climateListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError (error) {
+    private onSaveError(error) {
         try {
             error.json();
         } catch (exception) {
@@ -65,7 +65,7 @@ export class ClimateMySuffixDialogComponent implements OnInit {
         this.onError(error);
     }
 
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 }
@@ -79,13 +79,13 @@ export class ClimateMySuffixPopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
+    constructor(
         private route: ActivatedRoute,
         private climatePopupService: ClimateMySuffixPopupService
     ) {}
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             if ( params['id'] ) {
                 this.modalRef = this.climatePopupService
                     .open(ClimateMySuffixDialogComponent, params['id']);

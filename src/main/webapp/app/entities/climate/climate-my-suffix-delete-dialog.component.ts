@@ -25,12 +25,12 @@ export class ClimateMySuffixDeleteDialogComponent {
         this.jhiLanguageService.setLocations(['climate']);
     }
 
-    clear () {
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete (id: number) {
-        this.climateService.delete(id).subscribe(response => {
+    confirmDelete(id: number) {
+        this.climateService.delete(id).subscribe((response) => {
             this.eventManager.broadcast({
                 name: 'climateListModification',
                 content: 'Deleted an climate'
@@ -49,13 +49,13 @@ export class ClimateMySuffixDeletePopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
+    constructor(
         private route: ActivatedRoute,
         private climatePopupService: ClimateMySuffixPopupService
     ) {}
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.climatePopupService
                 .open(ClimateMySuffixDeleteDialogComponent, params['id']);
         });

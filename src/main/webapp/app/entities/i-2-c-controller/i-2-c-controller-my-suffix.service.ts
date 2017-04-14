@@ -11,14 +11,14 @@ export class I2cControllerMySuffixService {
     constructor(private http: Http) { }
 
     create(i2cController: I2cControllerMySuffix): Observable<I2cControllerMySuffix> {
-        let copy: I2cControllerMySuffix = Object.assign({}, i2cController);
+        const copy: I2cControllerMySuffix = Object.assign({}, i2cController);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
     }
 
     update(i2cController: I2cControllerMySuffix): Observable<I2cControllerMySuffix> {
-        let copy: I2cControllerMySuffix = Object.assign({}, i2cController);
+        const copy: I2cControllerMySuffix = Object.assign({}, i2cController);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
@@ -31,7 +31,7 @@ export class I2cControllerMySuffixService {
     }
 
     query(req?: any): Observable<Response> {
-        let options = this.createRequestOption(req);
+        const options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
         ;
     }
@@ -39,13 +39,10 @@ export class I2cControllerMySuffixService {
     delete(id: number): Observable<Response> {
         return this.http.delete(`${this.resourceUrl}/${id}`);
     }
-
-
-
     private createRequestOption(req?: any): BaseRequestOptions {
-        let options: BaseRequestOptions = new BaseRequestOptions();
+        const options: BaseRequestOptions = new BaseRequestOptions();
         if (req) {
-            let params: URLSearchParams = new URLSearchParams();
+            const params: URLSearchParams = new URLSearchParams();
             params.set('page', req.page);
             params.set('size', req.size);
             if (req.sort) {

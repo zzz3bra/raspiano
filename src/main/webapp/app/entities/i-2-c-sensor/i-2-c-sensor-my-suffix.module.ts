@@ -2,7 +2,6 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { RaspianoSharedModule } from '../../shared';
-
 import {
     I2cSensorMySuffixService,
     I2cSensorMySuffixPopupService,
@@ -16,7 +15,7 @@ import {
     i2cSensorPopupRoute,
 } from './';
 
-let ENTITY_STATES = [
+const ENTITY_STATES = [
     ...i2cSensorRoute,
     ...i2cSensorPopupRoute,
 ];

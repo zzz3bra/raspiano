@@ -26,14 +26,14 @@ export class RaspberryMySuffixDetailComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.subscription = this.route.params.subscribe(params => {
+        this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });
         this.registerChangeInRaspberries();
     }
 
-    load (id) {
-        this.raspberryService.find(id).subscribe(raspberry => {
+    load(id) {
+        this.raspberryService.find(id).subscribe((raspberry) => {
             this.raspberry = raspberry;
         });
     }
@@ -47,7 +47,6 @@ export class RaspberryMySuffixDetailComponent implements OnInit, OnDestroy {
     }
 
     registerChangeInRaspberries() {
-        this.eventSubscriber = this.eventManager.subscribe('raspberryListModification', response => this.load(this.raspberry.id));
+        this.eventSubscriber = this.eventManager.subscribe('raspberryListModification', (response) => this.load(this.raspberry.id));
     }
-
 }

@@ -11,7 +11,6 @@ import { RaspberryMySuffixDeletePopupComponent } from './raspberry-my-suffix-del
 
 import { Principal } from '../../shared';
 
-
 export const raspberryRoute: Routes = [
   {
     path: 'raspberry-my-suffix',

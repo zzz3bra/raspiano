@@ -2,7 +2,6 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { RaspianoSharedModule } from '../../shared';
-
 import {
     ControllerActonMySuffixService,
     ControllerActonMySuffixPopupService,
@@ -16,7 +15,7 @@ import {
     controllerActonPopupRoute,
 } from './';
 
-let ENTITY_STATES = [
+const ENTITY_STATES = [
     ...controllerActonRoute,
     ...controllerActonPopupRoute,
 ];

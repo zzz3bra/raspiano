@@ -44,11 +44,11 @@ export class MeasurementMySuffixDialogComponent implements OnInit {
         this.climateService.query().subscribe(
             (res: Response) => { this.climates = res.json(); }, (res: Response) => this.onError(res.json()));
     }
-    clear () {
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    save () {
+    save() {
         this.isSaving = true;
         if (this.measurement.id !== undefined) {
             this.measurementService.update(this.measurement)
@@ -61,13 +61,13 @@ export class MeasurementMySuffixDialogComponent implements OnInit {
         }
     }
 
-    private onSaveSuccess (result: MeasurementMySuffix) {
+    private onSaveSuccess(result: MeasurementMySuffix) {
         this.eventManager.broadcast({ name: 'measurementListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError (error) {
+    private onSaveError(error) {
         try {
             error.json();
         } catch (exception) {
@@ -77,7 +77,7 @@ export class MeasurementMySuffixDialogComponent implements OnInit {
         this.onError(error);
     }
 
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 
@@ -99,13 +99,13 @@ export class MeasurementMySuffixPopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
+    constructor(
         private route: ActivatedRoute,
         private measurementPopupService: MeasurementMySuffixPopupService
     ) {}
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             if ( params['id'] ) {
                 this.modalRef = this.measurementPopupService
                     .open(MeasurementMySuffixDialogComponent, params['id']);

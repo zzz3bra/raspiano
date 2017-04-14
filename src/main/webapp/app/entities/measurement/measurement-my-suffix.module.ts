@@ -2,7 +2,6 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { RaspianoSharedModule } from '../../shared';
-
 import {
     MeasurementMySuffixService,
     MeasurementMySuffixPopupService,
@@ -16,7 +15,7 @@ import {
     measurementPopupRoute,
 } from './';
 
-let ENTITY_STATES = [
+const ENTITY_STATES = [
     ...measurementRoute,
     ...measurementPopupRoute,
 ];

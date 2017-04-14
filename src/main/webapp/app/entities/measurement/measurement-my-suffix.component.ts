@@ -48,18 +48,14 @@ measurements: MeasurementMySuffix[];
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    trackId (index: number, item: MeasurementMySuffix) {
+    trackId(index: number, item: MeasurementMySuffix) {
         return item.id;
     }
-
-
-
     registerChangeInMeasurements() {
         this.eventSubscriber = this.eventManager.subscribe('measurementListModification', (response) => this.loadAll());
     }
 
-
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 }

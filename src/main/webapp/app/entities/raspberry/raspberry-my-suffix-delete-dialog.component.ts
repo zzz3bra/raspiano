@@ -25,12 +25,12 @@ export class RaspberryMySuffixDeleteDialogComponent {
         this.jhiLanguageService.setLocations(['raspberry']);
     }
 
-    clear () {
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete (id: number) {
-        this.raspberryService.delete(id).subscribe(response => {
+    confirmDelete(id: number) {
+        this.raspberryService.delete(id).subscribe((response) => {
             this.eventManager.broadcast({
                 name: 'raspberryListModification',
                 content: 'Deleted an raspberry'
@@ -49,13 +49,13 @@ export class RaspberryMySuffixDeletePopupComponent implements OnInit, OnDestroy 
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
+    constructor(
         private route: ActivatedRoute,
         private raspberryPopupService: RaspberryMySuffixPopupService
     ) {}
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.raspberryPopupService
                 .open(RaspberryMySuffixDeleteDialogComponent, params['id']);
         });

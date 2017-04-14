@@ -48,18 +48,14 @@ raspberries: RaspberryMySuffix[];
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    trackId (index: number, item: RaspberryMySuffix) {
+    trackId(index: number, item: RaspberryMySuffix) {
         return item.id;
     }
-
-
-
     registerChangeInRaspberries() {
         this.eventSubscriber = this.eventManager.subscribe('raspberryListModification', (response) => this.loadAll());
     }
 
-
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 }

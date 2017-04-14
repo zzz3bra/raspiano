@@ -26,14 +26,14 @@ export class I2cSensorMySuffixDetailComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.subscription = this.route.params.subscribe(params => {
+        this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });
         this.registerChangeInI2cSensors();
     }
 
-    load (id) {
-        this.i2cSensorService.find(id).subscribe(i2cSensor => {
+    load(id) {
+        this.i2cSensorService.find(id).subscribe((i2cSensor) => {
             this.i2cSensor = i2cSensor;
         });
     }
@@ -47,7 +47,6 @@ export class I2cSensorMySuffixDetailComponent implements OnInit, OnDestroy {
     }
 
     registerChangeInI2cSensors() {
-        this.eventSubscriber = this.eventManager.subscribe('i2cSensorListModification', response => this.load(this.i2cSensor.id));
+        this.eventSubscriber = this.eventManager.subscribe('i2cSensorListModification', (response) => this.load(this.i2cSensor.id));
     }
-
 }

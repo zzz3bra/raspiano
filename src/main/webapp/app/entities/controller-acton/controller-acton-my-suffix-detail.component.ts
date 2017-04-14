@@ -26,14 +26,14 @@ export class ControllerActonMySuffixDetailComponent implements OnInit, OnDestroy
     }
 
     ngOnInit() {
-        this.subscription = this.route.params.subscribe(params => {
+        this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });
         this.registerChangeInControllerActons();
     }
 
-    load (id) {
-        this.controllerActonService.find(id).subscribe(controllerActon => {
+    load(id) {
+        this.controllerActonService.find(id).subscribe((controllerActon) => {
             this.controllerActon = controllerActon;
         });
     }
@@ -47,7 +47,6 @@ export class ControllerActonMySuffixDetailComponent implements OnInit, OnDestroy
     }
 
     registerChangeInControllerActons() {
-        this.eventSubscriber = this.eventManager.subscribe('controllerActonListModification', response => this.load(this.controllerActon.id));
+        this.eventSubscriber = this.eventManager.subscribe('controllerActonListModification', (response) => this.load(this.controllerActon.id));
     }
-
 }

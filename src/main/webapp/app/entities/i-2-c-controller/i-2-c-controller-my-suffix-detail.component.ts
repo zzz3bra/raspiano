@@ -26,14 +26,14 @@ export class I2cControllerMySuffixDetailComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.subscription = this.route.params.subscribe(params => {
+        this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });
         this.registerChangeInI2cControllers();
     }
 
-    load (id) {
-        this.i2cControllerService.find(id).subscribe(i2cController => {
+    load(id) {
+        this.i2cControllerService.find(id).subscribe((i2cController) => {
             this.i2cController = i2cController;
         });
     }
@@ -47,7 +47,6 @@ export class I2cControllerMySuffixDetailComponent implements OnInit, OnDestroy {
     }
 
     registerChangeInI2cControllers() {
-        this.eventSubscriber = this.eventManager.subscribe('i2cControllerListModification', response => this.load(this.i2cController.id));
+        this.eventSubscriber = this.eventManager.subscribe('i2cControllerListModification', (response) => this.load(this.i2cController.id));
     }
-
 }

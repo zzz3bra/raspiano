@@ -32,11 +32,11 @@ export class I2cSensorMySuffixDialogComponent implements OnInit {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
     }
-    clear () {
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    save () {
+    save() {
         this.isSaving = true;
         if (this.i2cSensor.id !== undefined) {
             this.i2cSensorService.update(this.i2cSensor)
@@ -49,13 +49,13 @@ export class I2cSensorMySuffixDialogComponent implements OnInit {
         }
     }
 
-    private onSaveSuccess (result: I2cSensorMySuffix) {
+    private onSaveSuccess(result: I2cSensorMySuffix) {
         this.eventManager.broadcast({ name: 'i2cSensorListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError (error) {
+    private onSaveError(error) {
         try {
             error.json();
         } catch (exception) {
@@ -65,7 +65,7 @@ export class I2cSensorMySuffixDialogComponent implements OnInit {
         this.onError(error);
     }
 
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 }
@@ -79,13 +79,13 @@ export class I2cSensorMySuffixPopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
+    constructor(
         private route: ActivatedRoute,
         private i2cSensorPopupService: I2cSensorMySuffixPopupService
     ) {}
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             if ( params['id'] ) {
                 this.modalRef = this.i2cSensorPopupService
                     .open(I2cSensorMySuffixDialogComponent, params['id']);

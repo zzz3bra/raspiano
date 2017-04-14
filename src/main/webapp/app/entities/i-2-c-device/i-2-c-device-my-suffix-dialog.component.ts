@@ -38,11 +38,11 @@ export class I2cDeviceMySuffixDialogComponent implements OnInit {
         this.raspberryService.query().subscribe(
             (res: Response) => { this.raspberries = res.json(); }, (res: Response) => this.onError(res.json()));
     }
-    clear () {
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    save () {
+    save() {
         this.isSaving = true;
         if (this.i2cDevice.id !== undefined) {
             this.i2cDeviceService.update(this.i2cDevice)
@@ -55,13 +55,13 @@ export class I2cDeviceMySuffixDialogComponent implements OnInit {
         }
     }
 
-    private onSaveSuccess (result: I2cDeviceMySuffix) {
+    private onSaveSuccess(result: I2cDeviceMySuffix) {
         this.eventManager.broadcast({ name: 'i2cDeviceListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError (error) {
+    private onSaveError(error) {
         try {
             error.json();
         } catch (exception) {
@@ -71,7 +71,7 @@ export class I2cDeviceMySuffixDialogComponent implements OnInit {
         this.onError(error);
     }
 
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 
@@ -89,13 +89,13 @@ export class I2cDeviceMySuffixPopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
+    constructor(
         private route: ActivatedRoute,
         private i2cDevicePopupService: I2cDeviceMySuffixPopupService
     ) {}
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             if ( params['id'] ) {
                 this.modalRef = this.i2cDevicePopupService
                     .open(I2cDeviceMySuffixDialogComponent, params['id']);

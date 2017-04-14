@@ -25,12 +25,12 @@ export class ControllerActonMySuffixDeleteDialogComponent {
         this.jhiLanguageService.setLocations(['controllerActon']);
     }
 
-    clear () {
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete (id: number) {
-        this.controllerActonService.delete(id).subscribe(response => {
+    confirmDelete(id: number) {
+        this.controllerActonService.delete(id).subscribe((response) => {
             this.eventManager.broadcast({
                 name: 'controllerActonListModification',
                 content: 'Deleted an controllerActon'
@@ -49,13 +49,13 @@ export class ControllerActonMySuffixDeletePopupComponent implements OnInit, OnDe
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
+    constructor(
         private route: ActivatedRoute,
         private controllerActonPopupService: ControllerActonMySuffixPopupService
     ) {}
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.controllerActonPopupService
                 .open(ControllerActonMySuffixDeleteDialogComponent, params['id']);
         });

@@ -7,7 +7,7 @@ import { MeasurementMySuffixService } from './measurement-my-suffix.service';
 @Injectable()
 export class MeasurementMySuffixPopupService {
     private isOpen = false;
-    constructor (
+    constructor(
         private datePipe: DatePipe,
         private modalService: NgbModal,
         private router: Router,
@@ -15,14 +15,14 @@ export class MeasurementMySuffixPopupService {
 
     ) {}
 
-    open (component: Component, id?: number | any): NgbModalRef {
+    open(component: Component, id?: number | any): NgbModalRef {
         if (this.isOpen) {
             return;
         }
         this.isOpen = true;
 
         if (id) {
-            this.measurementService.find(id).subscribe(measurement => {
+            this.measurementService.find(id).subscribe((measurement) => {
                 measurement.dateTime = this.datePipe
                     .transform(measurement.dateTime, 'yyyy-MM-ddThh:mm');
                 this.measurementModalRef(component, measurement);
@@ -33,9 +33,9 @@ export class MeasurementMySuffixPopupService {
     }
 
     measurementModalRef(component: Component, measurement: MeasurementMySuffix): NgbModalRef {
-        let modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
+        const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
         modalRef.componentInstance.measurement = measurement;
-        modalRef.result.then(result => {
+        modalRef.result.then((result) => {
             this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true });
             this.isOpen = false;
         }, (reason) => {

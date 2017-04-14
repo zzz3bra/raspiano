@@ -48,18 +48,14 @@ i2cSensors: I2cSensorMySuffix[];
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    trackId (index: number, item: I2cSensorMySuffix) {
+    trackId(index: number, item: I2cSensorMySuffix) {
         return item.id;
     }
-
-
-
     registerChangeInI2cSensors() {
         this.eventSubscriber = this.eventManager.subscribe('i2cSensorListModification', (response) => this.loadAll());
     }
 
-
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 }

@@ -11,7 +11,6 @@ import { ControllerActonMySuffixDeletePopupComponent } from './controller-acton-
 
 import { Principal } from '../../shared';
 
-
 export const controllerActonRoute: Routes = [
   {
     path: 'controller-acton-my-suffix',

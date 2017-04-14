@@ -48,18 +48,14 @@ climates: ClimateMySuffix[];
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    trackId (index: number, item: ClimateMySuffix) {
+    trackId(index: number, item: ClimateMySuffix) {
         return item.id;
     }
-
-
-
     registerChangeInClimates() {
         this.eventSubscriber = this.eventManager.subscribe('climateListModification', (response) => this.loadAll());
     }
 
-
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 }

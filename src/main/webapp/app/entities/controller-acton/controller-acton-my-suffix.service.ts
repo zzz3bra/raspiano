@@ -12,7 +12,7 @@ export class ControllerActonMySuffixService {
     constructor(private http: Http, private dateUtils: DateUtils) { }
 
     create(controllerActon: ControllerActonMySuffix): Observable<ControllerActonMySuffix> {
-        let copy: ControllerActonMySuffix = Object.assign({}, controllerActon);
+        const copy: ControllerActonMySuffix = Object.assign({}, controllerActon);
         copy.actionStart = this.dateUtils.toDate(controllerActon.actionStart);
         copy.actionEnd = this.dateUtils.toDate(controllerActon.actionEnd);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
@@ -21,7 +21,7 @@ export class ControllerActonMySuffixService {
     }
 
     update(controllerActon: ControllerActonMySuffix): Observable<ControllerActonMySuffix> {
-        let copy: ControllerActonMySuffix = Object.assign({}, controllerActon);
+        const copy: ControllerActonMySuffix = Object.assign({}, controllerActon);
 
         copy.actionStart = this.dateUtils.toDate(controllerActon.actionStart);
 
@@ -33,7 +33,7 @@ export class ControllerActonMySuffixService {
 
     find(id: number): Observable<ControllerActonMySuffix> {
         return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
-            let jsonResponse = res.json();
+            const jsonResponse = res.json();
             jsonResponse.actionStart = this.dateUtils
                 .convertDateTimeFromServer(jsonResponse.actionStart);
             jsonResponse.actionEnd = this.dateUtils
@@ -43,7 +43,7 @@ export class ControllerActonMySuffixService {
     }
 
     query(req?: any): Observable<Response> {
-        let options = this.createRequestOption(req);
+        const options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
             .map((res: any) => this.convertResponse(res))
         ;
@@ -53,9 +53,8 @@ export class ControllerActonMySuffixService {
         return this.http.delete(`${this.resourceUrl}/${id}`);
     }
 
-
     private convertResponse(res: any): any {
-        let jsonResponse = res.json();
+        const jsonResponse = res.json();
         for (let i = 0; i < jsonResponse.length; i++) {
             jsonResponse[i].actionStart = this.dateUtils
                 .convertDateTimeFromServer(jsonResponse[i].actionStart);
@@ -67,9 +66,9 @@ export class ControllerActonMySuffixService {
     }
 
     private createRequestOption(req?: any): BaseRequestOptions {
-        let options: BaseRequestOptions = new BaseRequestOptions();
+        const options: BaseRequestOptions = new BaseRequestOptions();
         if (req) {
-            let params: URLSearchParams = new URLSearchParams();
+            const params: URLSearchParams = new URLSearchParams();
             params.set('page', req.page);
             params.set('size', req.size);
             if (req.sort) {

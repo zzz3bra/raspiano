@@ -12,7 +12,7 @@ export class MeasurementMySuffixService {
     constructor(private http: Http, private dateUtils: DateUtils) { }
 
     create(measurement: MeasurementMySuffix): Observable<MeasurementMySuffix> {
-        let copy: MeasurementMySuffix = Object.assign({}, measurement);
+        const copy: MeasurementMySuffix = Object.assign({}, measurement);
         copy.dateTime = this.dateUtils.toDate(measurement.dateTime);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
@@ -20,7 +20,7 @@ export class MeasurementMySuffixService {
     }
 
     update(measurement: MeasurementMySuffix): Observable<MeasurementMySuffix> {
-        let copy: MeasurementMySuffix = Object.assign({}, measurement);
+        const copy: MeasurementMySuffix = Object.assign({}, measurement);
 
         copy.dateTime = this.dateUtils.toDate(measurement.dateTime);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
@@ -30,7 +30,7 @@ export class MeasurementMySuffixService {
 
     find(id: number): Observable<MeasurementMySuffix> {
         return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
-            let jsonResponse = res.json();
+            const jsonResponse = res.json();
             jsonResponse.dateTime = this.dateUtils
                 .convertDateTimeFromServer(jsonResponse.dateTime);
             return jsonResponse;
@@ -38,7 +38,7 @@ export class MeasurementMySuffixService {
     }
 
     query(req?: any): Observable<Response> {
-        let options = this.createRequestOption(req);
+        const options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
             .map((res: any) => this.convertResponse(res))
         ;
@@ -48,9 +48,8 @@ export class MeasurementMySuffixService {
         return this.http.delete(`${this.resourceUrl}/${id}`);
     }
 
-
     private convertResponse(res: any): any {
-        let jsonResponse = res.json();
+        const jsonResponse = res.json();
         for (let i = 0; i < jsonResponse.length; i++) {
             jsonResponse[i].dateTime = this.dateUtils
                 .convertDateTimeFromServer(jsonResponse[i].dateTime);
@@ -60,9 +59,9 @@ export class MeasurementMySuffixService {
     }
 
     private createRequestOption(req?: any): BaseRequestOptions {
-        let options: BaseRequestOptions = new BaseRequestOptions();
+        const options: BaseRequestOptions = new BaseRequestOptions();
         if (req) {
-            let params: URLSearchParams = new URLSearchParams();
+            const params: URLSearchParams = new URLSearchParams();
             params.set('page', req.page);
             params.set('size', req.size);
             if (req.sort) {

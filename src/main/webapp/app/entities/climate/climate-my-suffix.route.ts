@@ -11,7 +11,6 @@ import { ClimateMySuffixDeletePopupComponent } from './climate-my-suffix-delete-
 
 import { Principal } from '../../shared';
 
-
 export const climateRoute: Routes = [
   {
     path: 'climate-my-suffix',
