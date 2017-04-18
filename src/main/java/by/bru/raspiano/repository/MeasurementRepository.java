@@ -4,6 +4,7 @@ import by.bru.raspiano.domain.Measurement;
 
 import org.springframework.data.jpa.repository.*;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -12,4 +13,5 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface MeasurementRepository extends JpaRepository<Measurement,Long> {
 
+    List<Measurement> findAllByDateTimeBetween(ZonedDateTime fromDate, ZonedDateTime toDate);
 }

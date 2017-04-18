@@ -26,12 +26,12 @@ spring:
         serialization.indent_output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:h2:file:./target/h2db/db/raspiano;DB_CLOSE_DELAY=-1
+        url: jdbc:h2:file:~/h2db/raspiano;DB_CLOSE_DELAY=-1
         username: raspiano
         password:
     h2:
         console:
-            enabled: false
+            enabled: true
     jpa:
         database-platform: io.github.jhipster.domain.util.FixedH2Dialect
         database: H2

@@ -3,13 +3,15 @@
     "relationships": [
         {
             "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
             "relationshipName": "controller",
             "otherEntityName": "i2cController",
             "otherEntityField": "id"
         },
         {
             "relationshipType": "many-to-one",
-            "relationshipName": "actionHistory",
+            "relationshipValidateRules": "required",
+            "relationshipName": "climate",
             "otherEntityName": "climate",
             "otherEntityField": "id"
         }
@@ -17,17 +19,22 @@
     "fields": [
         {
             "fieldName": "actionStart",
-            "fieldType": "ZonedDateTime"
+            "fieldType": "ZonedDateTime",
+            "fieldValidateRules": [
+                "required"
+            ]
         },
         {
             "fieldName": "actionEnd",
-            "fieldType": "ZonedDateTime"
+            "fieldType": "ZonedDateTime",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "changelogDate": "20170414170245",
     "entityTableName": "controller_acton",
     "dto": "mapstruct",
     "pagination": "no",
-    "service": "serviceImpl",
-    "angularJSSuffix": "mySuffix"
+    "service": "serviceImpl"
 }

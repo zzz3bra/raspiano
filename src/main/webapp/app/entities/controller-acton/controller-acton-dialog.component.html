@@ -1,0 +1,83 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myControllerActonLabel" jhiTranslate="raspianoApp.controllerActon.home.createOrEditLabel">Create or edit a Controller Acton</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!controllerActon.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="controllerActon.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="raspianoApp.controllerActon.actionStart" for="field_actionStart">Action Start</label>
+            <div class="d-flex">
+                <input id="field_actionStart" type="datetime-local" class="form-control" name="actionStart" [(ngModel)]="controllerActon.actionStart"
+                required  />
+            </div>
+            <div [hidden]="!(editForm.controls.actionStart?.dirty && editForm.controls.actionStart?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.actionStart?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.actionStart?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="raspianoApp.controllerActon.actionEnd" for="field_actionEnd">Action End</label>
+            <div class="d-flex">
+                <input id="field_actionEnd" type="datetime-local" class="form-control" name="actionEnd" [(ngModel)]="controllerActon.actionEnd"
+                required  />
+            </div>
+            <div [hidden]="!(editForm.controls.actionEnd?.dirty && editForm.controls.actionEnd?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.actionEnd?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.actionEnd?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label jhiTranslate="raspianoApp.controllerActon.controller" for="field_controller">Controller</label>
+            <select class="form-control" id="field_controller" name="controller" [(ngModel)]="controllerActon.controllerId"  required>
+                <option [ngValue]="i2cControllerOption.id" *ngFor="let i2cControllerOption of i2ccontrollers; trackBy: trackI2cControllerById">{{i2cControllerOption.id}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.controller?.dirty && editForm.controls.controller?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.controller?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+        <div class="form-group">
+            <label jhiTranslate="raspianoApp.controllerActon.climate" for="field_climate">Climate</label>
+            <select class="form-control" id="field_climate" name="climate" [(ngModel)]="controllerActon.climateId"  required>
+                <option [ngValue]="climateOption.id" *ngFor="let climateOption of climates; trackBy: trackClimateById">{{climateOption.id}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.climate?.dirty && editForm.controls.climate?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.climate?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

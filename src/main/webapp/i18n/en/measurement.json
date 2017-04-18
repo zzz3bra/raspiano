@@ -18,7 +18,7 @@
             "dateTime": "Date Time",
             "value": "Value",
             "source": "Source",
-            "dataHistory": "Data History"
+            "climate": "Climate"
         }
     }
 }

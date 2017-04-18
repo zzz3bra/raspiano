@@ -4,25 +4,36 @@
     "fields": [
         {
             "fieldName": "minDesiredTemperature",
-            "fieldType": "Integer"
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
         },
         {
             "fieldName": "maxDesiredTemperature",
-            "fieldType": "Integer"
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
         },
         {
             "fieldName": "minDesiredHumidity",
-            "fieldType": "Integer"
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
         },
         {
             "fieldName": "maxDesiredHumidity",
-            "fieldType": "Integer"
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "changelogDate": "20170414170241",
     "entityTableName": "climate",
     "dto": "mapstruct",
     "pagination": "no",
-    "service": "serviceImpl",
-    "angularJSSuffix": "mySuffix"
+    "service": "serviceImpl"
 }

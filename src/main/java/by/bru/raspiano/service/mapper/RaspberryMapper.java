@@ -9,13 +9,15 @@ import java.util.List;
 /**
  * Mapper for the entity Raspberry and its DTO RaspberryDTO.
  */
-@Mapper(componentModel = "spring", uses = {})
+@Mapper(componentModel = "spring", uses = {ClimateMapper.class, })
 public interface RaspberryMapper {
 
+    @Mapping(source = "climate.id", target = "climateId")
     RaspberryDTO raspberryToRaspberryDTO(Raspberry raspberry);
 
     List<RaspberryDTO> raspberriesToRaspberryDTOs(List<Raspberry> raspberries);
 
+    @Mapping(source = "climateId", target = "climate")
     Raspberry raspberryDTOToRaspberry(RaspberryDTO raspberryDTO);
 
     List<Raspberry> raspberryDTOsToRaspberries(List<RaspberryDTO> raspberryDTOs);

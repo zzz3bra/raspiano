@@ -1,11 +1,22 @@
 {
     "fluentMethods": true,
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "device",
+            "otherEntityName": "i2cDevice",
+            "otherEntityField": "id"
+        }
+    ],
     "fields": [
         {
             "fieldName": "controllerType",
             "fieldType": "ControllerType",
-            "fieldValues": "MOTOR,VALVE"
+            "fieldValues": "MOTOR,VALVE",
+            "fieldValidateRules": [
+                "required"
+            ]
         },
         {
             "fieldName": "turnOffDelayMs",
@@ -20,6 +31,5 @@
     "entityTableName": "i_2_c_controller",
     "dto": "mapstruct",
     "pagination": "no",
-    "service": "serviceImpl",
-    "angularJSSuffix": "mySuffix"
+    "service": "serviceImpl"
 }

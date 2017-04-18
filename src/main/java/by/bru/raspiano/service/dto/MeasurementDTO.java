@@ -2,6 +2,7 @@ package by.bru.raspiano.service.dto;
 
 
 import java.time.ZonedDateTime;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +21,7 @@ public class MeasurementDTO implements Serializable {
 
     private Long sourceId;
 
-    private Long dataHistoryId;
+    private Long climateId;
 
     public Long getId() {
         return id;
@@ -52,12 +53,12 @@ public class MeasurementDTO implements Serializable {
         this.sourceId = i2cSensorId;
     }
 
-    public Long getDataHistoryId() {
-        return dataHistoryId;
+    public Long getClimateId() {
+        return climateId;
     }
 
-    public void setDataHistoryId(Long climateId) {
-        this.dataHistoryId = climateId;
+    public void setClimateId(Long climateId) {
+        this.climateId = climateId;
     }
 
     @Override

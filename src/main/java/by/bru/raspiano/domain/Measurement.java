@@ -4,6 +4,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.Objects;
@@ -28,11 +29,13 @@ public class Measurement implements Serializable {
     @Column(name = "jhi_value")
     private Integer value;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @NotNull
     private I2cSensor source;
 
-    @ManyToOne
-    private Climate dataHistory;
+    @ManyToOne(optional = false)
+    @NotNull
+    private Climate climate;
 
     public Long getId() {
         return id;
@@ -81,17 +84,17 @@ public class Measurement implements Serializable {
         this.source = i2cSensor;
     }
 
-    public Climate getDataHistory() {
-        return dataHistory;
+    public Climate getClimate() {
+        return climate;
     }
 
-    public Measurement dataHistory(Climate climate) {
-        this.dataHistory = climate;
+    public Measurement climate(Climate climate) {
+        this.climate = climate;
         return this;
     }
 
-    public void setDataHistory(Climate climate) {
-        this.dataHistory = climate;
+    public void setClimate(Climate climate) {
+        this.climate = climate;
     }
 
     @Override

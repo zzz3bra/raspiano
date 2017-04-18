@@ -4,6 +4,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -21,16 +22,20 @@ public class Climate implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "min_desired_temperature")
+    @NotNull
+    @Column(name = "min_desired_temperature", nullable = false)
     private Integer minDesiredTemperature;
 
-    @Column(name = "max_desired_temperature")
+    @NotNull
+    @Column(name = "max_desired_temperature", nullable = false)
     private Integer maxDesiredTemperature;
 
-    @Column(name = "min_desired_humidity")
+    @NotNull
+    @Column(name = "min_desired_humidity", nullable = false)
     private Integer minDesiredHumidity;
 
-    @Column(name = "max_desired_humidity")
+    @NotNull
+    @Column(name = "max_desired_humidity", nullable = false)
     private Integer maxDesiredHumidity;
 
     public Long getId() {

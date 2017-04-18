@@ -1,31 +1,31 @@
 entity Climate {
-	minDesiredTemperature Integer,
-    maxDesiredTemperature Integer,
-    minDesiredHumidity Integer,
-    maxDesiredHumidity Integer
+	minDesiredTemperature Integer required,
+    maxDesiredTemperature Integer required,
+    minDesiredHumidity Integer required,
+    maxDesiredHumidity Integer required
 }
 
 entity I2cDevice {
-	deviceType DeviceType,
+	deviceType DeviceType required,
 	busAddress Integer,
     name String
 }
 
 entity I2cSensor {
-	sensorType SensorType,
+	sensorType SensorType required,
     minSensivity Integer,
     maxSensivity Integer
 }
 
 entity I2cController {
-	controllerType ControllerType,
+	controllerType ControllerType required,
     turnOffDelayMs Integer,
     turnOnDelayMs Integer
 }
 
 entity ControllerActon {
-	actionStart ZonedDateTime,
-    actionEnd ZonedDateTime
+	actionStart ZonedDateTime required,
+    actionEnd ZonedDateTime required
 }
 
 entity Raspberry {
@@ -50,15 +50,19 @@ enum DeviceType {
 }
 
 relationship ManyToOne {
-    ControllerActon{controller} to I2cController,
-    Measurement{source} to I2cSensor,
-	Measurement{dataHistory} to Climate,
-    ControllerActon{actionHistory} to Climate,
-   	I2cDevice{device} to Raspberry
+    ControllerActon{controller required} to I2cController,
+    Measurement{source required} to I2cSensor,
+    I2cDevice{device required} to Raspberry,
+	ControllerActon{climate required} to Climate,    
+    Measurement{climate required} to Climate,
+    I2cController{device required} to I2cDevice,
+    I2cSensor{device required} to I2cDevice
+}
+
+relationship OneToOne {
+	Raspberry{climate required} to Climate
 }
 
 dto * with mapstruct
 
 service all with serviceImpl
-
-angularSuffix * with mySuffix

@@ -1,21 +1,23 @@
 package by.bru.raspiano.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
 import by.bru.raspiano.service.MeasurementService;
-import by.bru.raspiano.web.rest.util.HeaderUtil;
 import by.bru.raspiano.service.dto.MeasurementDTO;
+import by.bru.raspiano.web.rest.util.HeaderUtil;
+import com.codahale.metrics.annotation.Timed;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.LinkedList;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Measurement.
@@ -27,7 +29,7 @@ public class MeasurementResource {
     private final Logger log = LoggerFactory.getLogger(MeasurementResource.class);
 
     private static final String ENTITY_NAME = "measurement";
-        
+
     private final MeasurementService measurementService;
 
     public MeasurementResource(MeasurementService measurementService) {
@@ -43,7 +45,7 @@ public class MeasurementResource {
      */
     @PostMapping("/measurements")
     @Timed
-    public ResponseEntity<MeasurementDTO> createMeasurement(@RequestBody MeasurementDTO measurementDTO) throws URISyntaxException {
+    public ResponseEntity<MeasurementDTO> createMeasurement(@Valid @RequestBody MeasurementDTO measurementDTO) throws URISyntaxException {
         log.debug("REST request to save Measurement : {}", measurementDTO);
         if (measurementDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new measurement cannot already have an ID")).body(null);
@@ -65,7 +67,7 @@ public class MeasurementResource {
      */
     @PutMapping("/measurements")
     @Timed
-    public ResponseEntity<MeasurementDTO> updateMeasurement(@RequestBody MeasurementDTO measurementDTO) throws URISyntaxException {
+    public ResponseEntity<MeasurementDTO> updateMeasurement(@Valid @RequestBody MeasurementDTO measurementDTO) throws URISyntaxException {
         log.debug("REST request to update Measurement : {}", measurementDTO);
         if (measurementDTO.getId() == null) {
             return createMeasurement(measurementDTO);
@@ -77,15 +79,24 @@ public class MeasurementResource {
     }
 
     /**
-     * GET  /measurements : get all the measurements.
+     * GET  /measurements : get all the measurements started from startInterval to endInterval.
      *
      * @return the ResponseEntity with status 200 (OK) and the list of measurements in body
      */
     @GetMapping("/measurements")
     @Timed
-    public List<MeasurementDTO> getAllMeasurements() {
-        log.debug("REST request to get all Measurements");
-        return measurementService.findAll();
+    public List<MeasurementDTO> getAllMeasurements(
+        @RequestParam(value = "fromDate", required = false) LocalDateTime fromDate,
+        @RequestParam(value = "toDate", required = false) LocalDateTime toDate) {
+        fromDate = Optional
+            .ofNullable(fromDate)
+            .orElse(LocalDateTime.ofInstant(Instant.EPOCH, ZoneId.systemDefault()));
+        toDate = Optional
+            .ofNullable(toDate)
+            .orElse(LocalDateTime.now());
+        log.debug("REST request to get all Measurements from [{}] to [{}]", fromDate, toDate);
+        List<MeasurementDTO> all = measurementService.findAll(fromDate, toDate);
+        return measurementService.findAll(fromDate, toDate);
     }
 
     /**

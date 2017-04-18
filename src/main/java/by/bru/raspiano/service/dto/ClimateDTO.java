@@ -1,6 +1,7 @@
 package by.bru.raspiano.service.dto;
 
 
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -11,12 +12,16 @@ public class ClimateDTO implements Serializable {
 
     private Long id;
 
+    @NotNull
     private Integer minDesiredTemperature;
 
+    @NotNull
     private Integer maxDesiredTemperature;
 
+    @NotNull
     private Integer minDesiredHumidity;
 
+    @NotNull
     private Integer maxDesiredHumidity;
 
     public Long getId() {

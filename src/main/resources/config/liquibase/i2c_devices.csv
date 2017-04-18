@@ -1,0 +1,2 @@
+id;device_type;bus_address;name;device_id
+1;SENSOR;40;SHT-21;1

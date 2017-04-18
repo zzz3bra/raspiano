@@ -10,6 +10,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,7 +25,7 @@ import java.util.stream.Collectors;
 public class MeasurementServiceImpl implements MeasurementService{
 
     private final Logger log = LoggerFactory.getLogger(MeasurementServiceImpl.class);
-    
+
     private final MeasurementRepository measurementRepository;
 
     private final MeasurementMapper measurementMapper;
@@ -49,14 +52,16 @@ public class MeasurementServiceImpl implements MeasurementService{
 
     /**
      *  Get all the measurements.
-     *  
+     *
      *  @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
-    public List<MeasurementDTO> findAll() {
+    public List<MeasurementDTO> findAll(LocalDateTime fromDate, LocalDateTime toDate) {
         log.debug("Request to get all Measurements");
-        List<MeasurementDTO> result = measurementRepository.findAll().stream()
+        List<MeasurementDTO> result = measurementRepository
+            .findAllByDateTimeBetween(ZonedDateTime.of(fromDate, ZoneId.systemDefault()), ZonedDateTime.of(toDate, ZoneId.systemDefault()))
+            .stream()
             .map(measurementMapper::measurementToMeasurementDTO)
             .collect(Collectors.toCollection(LinkedList::new));
 

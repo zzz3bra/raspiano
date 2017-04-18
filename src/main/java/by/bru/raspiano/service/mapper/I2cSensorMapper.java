@@ -9,13 +9,15 @@ import java.util.List;
 /**
  * Mapper for the entity I2cSensor and its DTO I2cSensorDTO.
  */
-@Mapper(componentModel = "spring", uses = {})
+@Mapper(componentModel = "spring", uses = {I2cDeviceMapper.class, })
 public interface I2cSensorMapper {
 
+    @Mapping(source = "device.id", target = "deviceId")
     I2cSensorDTO i2cSensorToI2cSensorDTO(I2cSensor i2cSensor);
 
     List<I2cSensorDTO> i2cSensorsToI2cSensorDTOs(List<I2cSensor> i2cSensors);
 
+    @Mapping(source = "deviceId", target = "device")
     I2cSensor i2cSensorDTOToI2cSensor(I2cSensorDTO i2cSensorDTO);
 
     List<I2cSensor> i2cSensorDTOsToI2cSensors(List<I2cSensorDTO> i2cSensorDTOs);

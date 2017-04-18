@@ -3,12 +3,15 @@ package by.bru.raspiano.web.rest;
 import by.bru.raspiano.RaspianoApp;
 
 import by.bru.raspiano.domain.Measurement;
+import by.bru.raspiano.domain.I2cSensor;
+import by.bru.raspiano.domain.Climate;
 import by.bru.raspiano.repository.MeasurementRepository;
 import by.bru.raspiano.service.MeasurementService;
 import by.bru.raspiano.service.dto.MeasurementDTO;
 import by.bru.raspiano.service.mapper.MeasurementMapper;
 import by.bru.raspiano.web.rest.errors.ExceptionTranslator;
 
+import com.google.common.collect.Lists;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +23,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,7 +49,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = RaspianoApp.class)
 public class MeasurementResourceIntTest {
 
-    private static final ZonedDateTime DEFAULT_DATE_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime DEFAULT_DATE_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
     private static final ZonedDateTime UPDATED_DATE_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
     private static final Integer DEFAULT_VALUE = 1;
@@ -75,6 +79,8 @@ public class MeasurementResourceIntTest {
     private MockMvc restMeasurementMockMvc;
 
     private Measurement measurement;
+    private Measurement oldMeasurement;
+    private Measurement futureMeasurement;
 
     @Before
     public void setup() {
@@ -88,7 +94,7 @@ public class MeasurementResourceIntTest {
 
     /**
      * Create an entity for this test.
-     *
+     * <p>
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
@@ -96,12 +102,24 @@ public class MeasurementResourceIntTest {
         Measurement measurement = new Measurement()
             .dateTime(DEFAULT_DATE_TIME)
             .value(DEFAULT_VALUE);
+        // Add required entity
+        I2cSensor source = I2cSensorResourceIntTest.createEntity(em);
+        em.persist(source);
+        em.flush();
+        measurement.setSource(source);
+        // Add required entity
+        Climate climate = ClimateResourceIntTest.createEntity(em);
+        em.persist(climate);
+        em.flush();
+        measurement.setClimate(climate);
         return measurement;
     }
 
     @Before
     public void initTest() {
         measurement = createEntity(em);
+        oldMeasurement = createEntity(em).dateTime(ZonedDateTime.now().minusDays(2));
+        futureMeasurement = createEntity(em).dateTime(ZonedDateTime.now().plusDays(2));
     }
 
     @Test
@@ -249,5 +267,37 @@ public class MeasurementResourceIntTest {
     @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Measurement.class);
+    }
+
+    @Test
+    @Transactional
+    public void getAllMeasurementsWithNullFromDateShouldReturnAllStartingFromUnixEpoch() throws Exception {
+        // Initialize the database
+        measurementRepository.save(Lists.newArrayList(oldMeasurement, futureMeasurement));
+        measurementRepository.flush();
+
+        // Get all the measurementList
+        restMeasurementMockMvc.perform(get("/api/measurements?sort=id,desc").requestAttr("toDate", ZonedDateTime.now().toString()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(oldMeasurement.getId().intValue())))
+            .andExpect(jsonPath("$.[*].dateTime").value(hasItem(sameInstant(oldMeasurement.getDateTime()))))
+            .andExpect(jsonPath("$.[*].value").value(hasItem(DEFAULT_VALUE)));
+    }
+
+    @Test
+    @Transactional
+    public void getAllMeasurementsWithNullToDateShouldReturnAllUntilNow() throws Exception {
+        // Initialize the database
+        measurementRepository.save(Lists.newArrayList(oldMeasurement, futureMeasurement));
+        measurementRepository.flush();
+
+        // Get all the measurementList
+        restMeasurementMockMvc.perform(get("/api/measurements?sort=id,desc").requestAttr("fromDate", ZonedDateTime.now().toString()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(oldMeasurement.getId().intValue())))
+            .andExpect(jsonPath("$.[*].dateTime").value(hasItem(sameInstant(oldMeasurement.getDateTime()))))
+            .andExpect(jsonPath("$.[*].value").value(hasItem(DEFAULT_VALUE)));
     }
 }

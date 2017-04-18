@@ -14,6 +14,8 @@
 # ===================================================================
 
 spring:
+    profiles:
+        include: heroku
     devtools:
         restart:
             enabled: false
@@ -21,8 +23,8 @@ spring:
             enabled: false
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:h2:mem:jhipstersampleapplication;DB_CLOSE_DELAY=-1
-        username: jhipsterSampleApplication
+        url: jdbc:h2:file:~/h2db/raspiano;DB_CLOSE_DELAY=-1
+        username: raspiano
         password:
         hikari:
             data-source-properties:
@@ -32,7 +34,7 @@ spring:
                 useServerPrepStmts: true
     h2:
         console:
-            enabled: false
+            enabled: true
     jpa:
         database-platform: io.github.jhipster.domain.util.FixedH2Dialect
         database: H2

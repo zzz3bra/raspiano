@@ -1,7 +1,10 @@
 package by.bru.raspiano.service.dto;
 
 
+import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 import by.bru.raspiano.domain.enumeration.ControllerType;
 
@@ -12,11 +15,14 @@ public class I2cControllerDTO implements Serializable {
 
     private Long id;
 
+    @NotNull
     private ControllerType controllerType;
 
     private Integer turnOffDelayMs;
 
     private Integer turnOnDelayMs;
+
+    private Long deviceId;
 
     public Long getId() {
         return id;
@@ -45,6 +51,14 @@ public class I2cControllerDTO implements Serializable {
 
     public void setTurnOnDelayMs(Integer turnOnDelayMs) {
         this.turnOnDelayMs = turnOnDelayMs;
+    }
+
+    public Long getDeviceId() {
+        return deviceId;
+    }
+
+    public void setDeviceId(Long i2cDeviceId) {
+        this.deviceId = i2cDeviceId;
     }
 
     @Override

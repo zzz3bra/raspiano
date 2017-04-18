@@ -1,7 +1,10 @@
 package by.bru.raspiano.service.dto;
 
 
+import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -12,6 +15,8 @@ public class RaspberryDTO implements Serializable {
     private Long id;
 
     private String name;
+
+    private Long climateId;
 
     public Long getId() {
         return id;
@@ -26,6 +31,14 @@ public class RaspberryDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Long getClimateId() {
+        return climateId;
+    }
+
+    public void setClimateId(Long climateId) {
+        this.climateId = climateId;
     }
 
     @Override

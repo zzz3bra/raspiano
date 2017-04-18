@@ -3,6 +3,7 @@ package by.bru.raspiano.web.rest;
 import by.bru.raspiano.RaspianoApp;
 
 import by.bru.raspiano.domain.I2cSensor;
+import by.bru.raspiano.domain.I2cDevice;
 import by.bru.raspiano.repository.I2cSensorRepository;
 import by.bru.raspiano.service.I2cSensorService;
 import by.bru.raspiano.service.dto.I2cSensorDTO;
@@ -96,6 +97,11 @@ public class I2cSensorResourceIntTest {
             .sensorType(DEFAULT_SENSOR_TYPE)
             .minSensivity(DEFAULT_MIN_SENSIVITY)
             .maxSensivity(DEFAULT_MAX_SENSIVITY);
+        // Add required entity
+        I2cDevice device = I2cDeviceResourceIntTest.createEntity(em);
+        em.persist(device);
+        em.flush();
+        i2cSensor.setDevice(device);
         return i2cSensor;
     }
 
@@ -143,6 +149,25 @@ public class I2cSensorResourceIntTest {
         // Validate the Alice in the database
         List<I2cSensor> i2cSensorList = i2cSensorRepository.findAll();
         assertThat(i2cSensorList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    @Transactional
+    public void checkSensorTypeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = i2cSensorRepository.findAll().size();
+        // set the field null
+        i2cSensor.setSensorType(null);
+
+        // Create the I2cSensor, which fails.
+        I2cSensorDTO i2cSensorDTO = i2cSensorMapper.i2cSensorToI2cSensorDTO(i2cSensor);
+
+        restI2cSensorMockMvc.perform(post("/api/i-2-c-sensors")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(i2cSensorDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<I2cSensor> i2cSensorList = i2cSensorRepository.findAll();
+        assertThat(i2cSensorList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test

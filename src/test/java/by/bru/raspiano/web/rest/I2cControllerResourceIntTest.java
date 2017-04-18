@@ -3,6 +3,7 @@ package by.bru.raspiano.web.rest;
 import by.bru.raspiano.RaspianoApp;
 
 import by.bru.raspiano.domain.I2cController;
+import by.bru.raspiano.domain.I2cDevice;
 import by.bru.raspiano.repository.I2cControllerRepository;
 import by.bru.raspiano.service.I2cControllerService;
 import by.bru.raspiano.service.dto.I2cControllerDTO;
@@ -96,6 +97,11 @@ public class I2cControllerResourceIntTest {
             .controllerType(DEFAULT_CONTROLLER_TYPE)
             .turnOffDelayMs(DEFAULT_TURN_OFF_DELAY_MS)
             .turnOnDelayMs(DEFAULT_TURN_ON_DELAY_MS);
+        // Add required entity
+        I2cDevice device = I2cDeviceResourceIntTest.createEntity(em);
+        em.persist(device);
+        em.flush();
+        i2cController.setDevice(device);
         return i2cController;
     }
 
@@ -143,6 +149,25 @@ public class I2cControllerResourceIntTest {
         // Validate the Alice in the database
         List<I2cController> i2cControllerList = i2cControllerRepository.findAll();
         assertThat(i2cControllerList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    @Transactional
+    public void checkControllerTypeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = i2cControllerRepository.findAll().size();
+        // set the field null
+        i2cController.setControllerType(null);
+
+        // Create the I2cController, which fails.
+        I2cControllerDTO i2cControllerDTO = i2cControllerMapper.i2cControllerToI2cControllerDTO(i2cController);
+
+        restI2cControllerMockMvc.perform(post("/api/i-2-c-controllers")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(i2cControllerDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<I2cController> i2cControllerList = i2cControllerRepository.findAll();
+        assertThat(i2cControllerList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test

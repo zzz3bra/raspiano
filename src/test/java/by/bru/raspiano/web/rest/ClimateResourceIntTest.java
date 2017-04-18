@@ -151,6 +151,82 @@ public class ClimateResourceIntTest {
 
     @Test
     @Transactional
+    public void checkMinDesiredTemperatureIsRequired() throws Exception {
+        int databaseSizeBeforeTest = climateRepository.findAll().size();
+        // set the field null
+        climate.setMinDesiredTemperature(null);
+
+        // Create the Climate, which fails.
+        ClimateDTO climateDTO = climateMapper.climateToClimateDTO(climate);
+
+        restClimateMockMvc.perform(post("/api/climates")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(climateDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Climate> climateList = climateRepository.findAll();
+        assertThat(climateList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkMaxDesiredTemperatureIsRequired() throws Exception {
+        int databaseSizeBeforeTest = climateRepository.findAll().size();
+        // set the field null
+        climate.setMaxDesiredTemperature(null);
+
+        // Create the Climate, which fails.
+        ClimateDTO climateDTO = climateMapper.climateToClimateDTO(climate);
+
+        restClimateMockMvc.perform(post("/api/climates")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(climateDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Climate> climateList = climateRepository.findAll();
+        assertThat(climateList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkMinDesiredHumidityIsRequired() throws Exception {
+        int databaseSizeBeforeTest = climateRepository.findAll().size();
+        // set the field null
+        climate.setMinDesiredHumidity(null);
+
+        // Create the Climate, which fails.
+        ClimateDTO climateDTO = climateMapper.climateToClimateDTO(climate);
+
+        restClimateMockMvc.perform(post("/api/climates")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(climateDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Climate> climateList = climateRepository.findAll();
+        assertThat(climateList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkMaxDesiredHumidityIsRequired() throws Exception {
+        int databaseSizeBeforeTest = climateRepository.findAll().size();
+        // set the field null
+        climate.setMaxDesiredHumidity(null);
+
+        // Create the Climate, which fails.
+        ClimateDTO climateDTO = climateMapper.climateToClimateDTO(climate);
+
+        restClimateMockMvc.perform(post("/api/climates")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(climateDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Climate> climateList = climateRepository.findAll();
+        assertThat(climateList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllClimates() throws Exception {
         // Initialize the database
         climateRepository.saveAndFlush(climate);

@@ -4,6 +4,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -23,8 +24,9 @@ public class I2cSensor implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "sensor_type")
+    @Column(name = "sensor_type", nullable = false)
     private SensorType sensorType;
 
     @Column(name = "min_sensivity")
@@ -32,6 +34,10 @@ public class I2cSensor implements Serializable {
 
     @Column(name = "max_sensivity")
     private Integer maxSensivity;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    private I2cDevice device;
 
     public Long getId() {
         return id;
@@ -78,6 +84,19 @@ public class I2cSensor implements Serializable {
 
     public void setMaxSensivity(Integer maxSensivity) {
         this.maxSensivity = maxSensivity;
+    }
+
+    public I2cDevice getDevice() {
+        return device;
+    }
+
+    public I2cSensor device(I2cDevice i2cDevice) {
+        this.device = i2cDevice;
+        return this;
+    }
+
+    public void setDevice(I2cDevice i2cDevice) {
+        this.device = i2cDevice;
     }
 
     @Override

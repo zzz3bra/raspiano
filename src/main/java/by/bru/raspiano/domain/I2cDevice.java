@@ -4,6 +4,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -23,8 +24,9 @@ public class I2cDevice implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "device_type")
+    @Column(name = "device_type", nullable = false)
     private DeviceType deviceType;
 
     @Column(name = "bus_address")
@@ -33,7 +35,8 @@ public class I2cDevice implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @NotNull
     private Raspberry device;
 
     public Long getId() {

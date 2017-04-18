@@ -13,13 +13,13 @@ import java.util.List;
 public interface MeasurementMapper {
 
     @Mapping(source = "source.id", target = "sourceId")
-    @Mapping(source = "dataHistory.id", target = "dataHistoryId")
+    @Mapping(source = "climate.id", target = "climateId")
     MeasurementDTO measurementToMeasurementDTO(Measurement measurement);
 
     List<MeasurementDTO> measurementsToMeasurementDTOs(List<Measurement> measurements);
 
     @Mapping(source = "sourceId", target = "source")
-    @Mapping(source = "dataHistoryId", target = "dataHistory")
+    @Mapping(source = "climateId", target = "climate")
     Measurement measurementDTOToMeasurement(MeasurementDTO measurementDTO);
 
     List<Measurement> measurementDTOsToMeasurements(List<MeasurementDTO> measurementDTOs);

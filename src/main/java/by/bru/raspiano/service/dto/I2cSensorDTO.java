@@ -1,7 +1,10 @@
 package by.bru.raspiano.service.dto;
 
 
+import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 import by.bru.raspiano.domain.enumeration.SensorType;
 
@@ -12,11 +15,14 @@ public class I2cSensorDTO implements Serializable {
 
     private Long id;
 
+    @NotNull
     private SensorType sensorType;
 
     private Integer minSensivity;
 
     private Integer maxSensivity;
+
+    private Long deviceId;
 
     public Long getId() {
         return id;
@@ -45,6 +51,14 @@ public class I2cSensorDTO implements Serializable {
 
     public void setMaxSensivity(Integer maxSensivity) {
         this.maxSensivity = maxSensivity;
+    }
+
+    public Long getDeviceId() {
+        return deviceId;
+    }
+
+    public void setDeviceId(Long i2cDeviceId) {
+        this.deviceId = i2cDeviceId;
     }
 
     @Override

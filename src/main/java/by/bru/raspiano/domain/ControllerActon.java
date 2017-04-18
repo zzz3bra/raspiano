@@ -2,8 +2,10 @@ package by.bru.raspiano.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.Objects;
@@ -22,17 +24,21 @@ public class ControllerActon implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "action_start")
+    @NotNull
+    @Column(name = "action_start", nullable = false)
     private ZonedDateTime actionStart;
 
-    @Column(name = "action_end")
+    @NotNull
+    @Column(name = "action_end", nullable = false)
     private ZonedDateTime actionEnd;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @NotNull
     private I2cController controller;
 
-    @ManyToOne
-    private Climate actionHistory;
+    @ManyToOne(optional = false)
+    @NotNull
+    private Climate climate;
 
     public Long getId() {
         return id;
@@ -81,17 +87,17 @@ public class ControllerActon implements Serializable {
         this.controller = i2cController;
     }
 
-    public Climate getActionHistory() {
-        return actionHistory;
+    public Climate getClimate() {
+        return climate;
     }
 
-    public ControllerActon actionHistory(Climate climate) {
-        this.actionHistory = climate;
+    public ControllerActon climate(Climate climate) {
+        this.climate = climate;
         return this;
     }
 
-    public void setActionHistory(Climate climate) {
-        this.actionHistory = climate;
+    public void setClimate(Climate climate) {
+        this.climate = climate;
     }
 
     @Override

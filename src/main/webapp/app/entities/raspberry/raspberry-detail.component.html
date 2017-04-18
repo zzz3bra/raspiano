@@ -1,0 +1,31 @@
+
+<div *ngIf="raspberry">
+    <h2><span jhiTranslate="raspianoApp.raspberry.detail.title">Raspberry</span> {{raspberry.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="raspianoApp.raspberry.name">Name</span></dt>
+        <dd>
+            <span>{{raspberry.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="raspianoApp.raspberry.climate">Climate</span></dt>
+        <dd>
+            <div *ngIf="raspberry.climateId">
+                <a [routerLink]="['/climate', raspberry.climateId]">{{raspberry.climateId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'raspberry/'+ raspberry.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

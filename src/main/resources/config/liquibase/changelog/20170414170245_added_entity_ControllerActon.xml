@@ -23,19 +23,19 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="action_start" type="timestamp">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
 
             <column name="action_end" type="timestamp">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
 
             <column name="controller_id" type="bigint">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
 
-            <column name="action_history_id" type="bigint">
-                <constraints nullable="true" />
+            <column name="climate_id" type="bigint">
+                <constraints nullable="false" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->

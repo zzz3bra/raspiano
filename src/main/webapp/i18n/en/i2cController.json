@@ -17,7 +17,8 @@
             },
             "controllerType": "Controller Type",
             "turnOffDelayMs": "Turn Off Delay Ms",
-            "turnOnDelayMs": "Turn On Delay Ms"
+            "turnOnDelayMs": "Turn On Delay Ms",
+            "device": "Device"
         }
     }
 }

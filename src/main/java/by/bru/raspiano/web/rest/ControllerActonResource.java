@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.LinkedList;
@@ -43,7 +44,7 @@ public class ControllerActonResource {
      */
     @PostMapping("/controller-actons")
     @Timed
-    public ResponseEntity<ControllerActonDTO> createControllerActon(@RequestBody ControllerActonDTO controllerActonDTO) throws URISyntaxException {
+    public ResponseEntity<ControllerActonDTO> createControllerActon(@Valid @RequestBody ControllerActonDTO controllerActonDTO) throws URISyntaxException {
         log.debug("REST request to save ControllerActon : {}", controllerActonDTO);
         if (controllerActonDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new controllerActon cannot already have an ID")).body(null);
@@ -65,7 +66,7 @@ public class ControllerActonResource {
      */
     @PutMapping("/controller-actons")
     @Timed
-    public ResponseEntity<ControllerActonDTO> updateControllerActon(@RequestBody ControllerActonDTO controllerActonDTO) throws URISyntaxException {
+    public ResponseEntity<ControllerActonDTO> updateControllerActon(@Valid @RequestBody ControllerActonDTO controllerActonDTO) throws URISyntaxException {
         log.debug("REST request to update ControllerActon : {}", controllerActonDTO);
         if (controllerActonDTO.getId() == null) {
             return createControllerActon(controllerActonDTO);

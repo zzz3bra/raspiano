@@ -23,7 +23,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="controller_type" type="varchar(255)">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
 
             <column name="turn_off_delay_ms" type="integer">
@@ -32,6 +32,10 @@
 
             <column name="turn_on_delay_ms" type="integer">
                 <constraints nullable="true" />
+            </column>
+
+            <column name="device_id" type="bigint">
+                <constraints nullable="false" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->

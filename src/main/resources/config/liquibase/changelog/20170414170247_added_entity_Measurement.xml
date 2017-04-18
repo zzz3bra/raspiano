@@ -31,11 +31,11 @@
             </column>
 
             <column name="source_id" type="bigint">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
 
-            <column name="data_history_id" type="bigint">
-                <constraints nullable="true" />
+            <column name="climate_id" type="bigint">
+                <constraints nullable="false" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->

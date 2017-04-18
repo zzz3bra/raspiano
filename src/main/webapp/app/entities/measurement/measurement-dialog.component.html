@@ -1,0 +1,62 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myMeasurementLabel" jhiTranslate="raspianoApp.measurement.home.createOrEditLabel">Create or edit a Measurement</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!measurement.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="measurement.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="raspianoApp.measurement.dateTime" for="field_dateTime">Date Time</label>
+            <div class="d-flex">
+                <input id="field_dateTime" type="datetime-local" class="form-control" name="dateTime" [(ngModel)]="measurement.dateTime"
+                  />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="raspianoApp.measurement.value" for="field_value">Value</label>
+            <input type="number" class="form-control" name="value" id="field_value"
+                [(ngModel)]="measurement.value"
+             />
+        </div>
+
+        <div class="form-group">
+            <label jhiTranslate="raspianoApp.measurement.source" for="field_source">Source</label>
+            <select class="form-control" id="field_source" name="source" [(ngModel)]="measurement.sourceId"  required>
+                <option [ngValue]="i2cSensorOption.id" *ngFor="let i2cSensorOption of i2csensors; trackBy: trackI2cSensorById">{{i2cSensorOption.id}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.source?.dirty && editForm.controls.source?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.source?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+        <div class="form-group">
+            <label jhiTranslate="raspianoApp.measurement.climate" for="field_climate">Climate</label>
+            <select class="form-control" id="field_climate" name="climate" [(ngModel)]="measurement.climateId"  required>
+                <option [ngValue]="climateOption.id" *ngFor="let climateOption of climates; trackBy: trackClimateById">{{climateOption.id}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.climate?.dirty && editForm.controls.climate?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.climate?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

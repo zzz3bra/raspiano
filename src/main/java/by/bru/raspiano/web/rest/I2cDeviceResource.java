@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.LinkedList;
@@ -43,7 +44,7 @@ public class I2cDeviceResource {
      */
     @PostMapping("/i-2-c-devices")
     @Timed
-    public ResponseEntity<I2cDeviceDTO> createI2cDevice(@RequestBody I2cDeviceDTO i2cDeviceDTO) throws URISyntaxException {
+    public ResponseEntity<I2cDeviceDTO> createI2cDevice(@Valid @RequestBody I2cDeviceDTO i2cDeviceDTO) throws URISyntaxException {
         log.debug("REST request to save I2cDevice : {}", i2cDeviceDTO);
         if (i2cDeviceDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new i2cDevice cannot already have an ID")).body(null);
@@ -65,7 +66,7 @@ public class I2cDeviceResource {
      */
     @PutMapping("/i-2-c-devices")
     @Timed
-    public ResponseEntity<I2cDeviceDTO> updateI2cDevice(@RequestBody I2cDeviceDTO i2cDeviceDTO) throws URISyntaxException {
+    public ResponseEntity<I2cDeviceDTO> updateI2cDevice(@Valid @RequestBody I2cDeviceDTO i2cDeviceDTO) throws URISyntaxException {
         log.debug("REST request to update I2cDevice : {}", i2cDeviceDTO);
         if (i2cDeviceDTO.getId() == null) {
             return createI2cDevice(i2cDeviceDTO);

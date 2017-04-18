@@ -14,9 +14,9 @@
                                  referencedColumnNames="id"
                                  referencedTableName="i_2_c_sensor"/>
 
-        <addForeignKeyConstraint baseColumnNames="data_history_id"
+        <addForeignKeyConstraint baseColumnNames="climate_id"
                                  baseTableName="measurement"
-                                 constraintName="fk_measurement_data_history_id"
+                                 constraintName="fk_measurement_climate_id"
                                  referencedColumnNames="id"
                                  referencedTableName="climate"/>
 

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.LinkedList;
@@ -43,7 +44,7 @@ public class I2cSensorResource {
      */
     @PostMapping("/i-2-c-sensors")
     @Timed
-    public ResponseEntity<I2cSensorDTO> createI2cSensor(@RequestBody I2cSensorDTO i2cSensorDTO) throws URISyntaxException {
+    public ResponseEntity<I2cSensorDTO> createI2cSensor(@Valid @RequestBody I2cSensorDTO i2cSensorDTO) throws URISyntaxException {
         log.debug("REST request to save I2cSensor : {}", i2cSensorDTO);
         if (i2cSensorDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new i2cSensor cannot already have an ID")).body(null);
@@ -65,7 +66,7 @@ public class I2cSensorResource {
      */
     @PutMapping("/i-2-c-sensors")
     @Timed
-    public ResponseEntity<I2cSensorDTO> updateI2cSensor(@RequestBody I2cSensorDTO i2cSensorDTO) throws URISyntaxException {
+    public ResponseEntity<I2cSensorDTO> updateI2cSensor(@Valid @RequestBody I2cSensorDTO i2cSensorDTO) throws URISyntaxException {
         log.debug("REST request to update I2cSensor : {}", i2cSensorDTO);
         if (i2cSensorDTO.getId() == null) {
             return createI2cSensor(i2cSensorDTO);

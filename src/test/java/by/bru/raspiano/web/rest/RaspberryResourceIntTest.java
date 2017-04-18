@@ -3,6 +3,7 @@ package by.bru.raspiano.web.rest;
 import by.bru.raspiano.RaspianoApp;
 
 import by.bru.raspiano.domain.Raspberry;
+import by.bru.raspiano.domain.Climate;
 import by.bru.raspiano.repository.RaspberryRepository;
 import by.bru.raspiano.service.RaspberryService;
 import by.bru.raspiano.service.dto.RaspberryDTO;
@@ -87,6 +88,11 @@ public class RaspberryResourceIntTest {
     public static Raspberry createEntity(EntityManager em) {
         Raspberry raspberry = new Raspberry()
             .name(DEFAULT_NAME);
+        // Add required entity
+        Climate climate = ClimateResourceIntTest.createEntity(em);
+        em.persist(climate);
+        em.flush();
+        raspberry.setClimate(climate);
         return raspberry;
     }
 

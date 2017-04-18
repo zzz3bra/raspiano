@@ -15,7 +15,8 @@
             "detail": {
                 "title": "Raspberry"
             },
-            "name": "Name"
+            "name": "Name",
+            "climate": "Climate"
         }
     }
 }

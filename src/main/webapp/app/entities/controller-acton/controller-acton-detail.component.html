@@ -1,0 +1,41 @@
+
+<div *ngIf="controllerActon">
+    <h2><span jhiTranslate="raspianoApp.controllerActon.detail.title">Controller Acton</span> {{controllerActon.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="raspianoApp.controllerActon.actionStart">Action Start</span></dt>
+        <dd>
+            <span>{{controllerActon.actionStart | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="raspianoApp.controllerActon.actionEnd">Action End</span></dt>
+        <dd>
+            <span>{{controllerActon.actionEnd | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="raspianoApp.controllerActon.controller">Controller</span></dt>
+        <dd>
+            <div *ngIf="controllerActon.controllerId">
+                <a [routerLink]="['/i-2-c-controller', controllerActon.controllerId]">{{controllerActon.controllerId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="raspianoApp.controllerActon.climate">Climate</span></dt>
+        <dd>
+            <div *ngIf="controllerActon.climateId">
+                <a [routerLink]="['/climate', controllerActon.climateId]">{{controllerActon.climateId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'controller-acton/'+ controllerActon.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

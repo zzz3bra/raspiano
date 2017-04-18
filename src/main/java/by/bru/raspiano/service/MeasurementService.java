@@ -1,6 +1,8 @@
 package by.bru.raspiano.service;
 
 import by.bru.raspiano.service.dto.MeasurementDTO;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -17,11 +19,11 @@ public interface MeasurementService {
     MeasurementDTO save(MeasurementDTO measurementDTO);
 
     /**
-     *  Get all the measurements.
-     *  
+     *  Get all the measurements within interval.
+     *
      *  @return the list of entities
      */
-    List<MeasurementDTO> findAll();
+    List<MeasurementDTO> findAll(LocalDateTime startInterval, LocalDateTime endInterval);
 
     /**
      *  Get the "id" measurement.

@@ -1,6 +1,16 @@
 {
     "fluentMethods": true,
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "climate",
+            "otherEntityName": "climate",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "raspberry"
+        }
+    ],
     "fields": [
         {
             "fieldName": "name",
@@ -11,6 +21,5 @@
     "entityTableName": "raspberry",
     "dto": "mapstruct",
     "pagination": "no",
-    "service": "serviceImpl",
-    "angularJSSuffix": "mySuffix"
+    "service": "serviceImpl"
 }

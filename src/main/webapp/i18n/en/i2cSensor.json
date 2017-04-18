@@ -17,7 +17,8 @@
             },
             "sensorType": "Sensor Type",
             "minSensivity": "Min Sensivity",
-            "maxSensivity": "Max Sensivity"
+            "maxSensivity": "Max Sensivity",
+            "device": "Device"
         }
     }
 }

@@ -1,6 +1,7 @@
 package by.bru.raspiano.service.dto;
 
 
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +15,7 @@ public class I2cDeviceDTO implements Serializable {
 
     private Long id;
 
+    @NotNull
     private DeviceType deviceType;
 
     private Integer busAddress;

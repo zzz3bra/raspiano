@@ -1,0 +1,62 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myI2cDeviceLabel" jhiTranslate="raspianoApp.i2cDevice.home.createOrEditLabel">Create or edit a I 2 C Device</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!i2cDevice.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="i2cDevice.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="raspianoApp.i2cDevice.deviceType" for="field_deviceType">Device Type</label>
+            <select class="form-control" name="deviceType" [(ngModel)]="i2cDevice.deviceType" id="field_deviceType"  required>
+                <option value="SENSOR" jhiTranslate="raspianoApp.DeviceType.SENSOR">SENSOR</option>
+                <option value="CONTROLLER" jhiTranslate="raspianoApp.DeviceType.CONTROLLER">CONTROLLER</option>
+            </select>
+            <div [hidden]="!(editForm.controls.deviceType?.dirty && editForm.controls.deviceType?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.deviceType?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="raspianoApp.i2cDevice.busAddress" for="field_busAddress">Bus Address</label>
+            <input type="number" class="form-control" name="busAddress" id="field_busAddress"
+                [(ngModel)]="i2cDevice.busAddress"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="raspianoApp.i2cDevice.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                [(ngModel)]="i2cDevice.name"
+             />
+        </div>
+
+        <div class="form-group">
+            <label jhiTranslate="raspianoApp.i2cDevice.device" for="field_device">Device</label>
+            <select class="form-control" id="field_device" name="device" [(ngModel)]="i2cDevice.deviceId"  required>
+                <option [ngValue]="raspberryOption.id" *ngFor="let raspberryOption of raspberries; trackBy: trackRaspberryById">{{raspberryOption.id}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.device?.dirty && editForm.controls.device?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.device?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

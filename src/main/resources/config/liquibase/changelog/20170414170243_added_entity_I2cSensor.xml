@@ -23,7 +23,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="sensor_type" type="varchar(255)">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
 
             <column name="min_sensivity" type="integer">
@@ -32,6 +32,10 @@
 
             <column name="max_sensivity" type="integer">
                 <constraints nullable="true" />
+            </column>
+
+            <column name="device_id" type="bigint">
+                <constraints nullable="false" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->

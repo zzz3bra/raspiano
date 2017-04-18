@@ -1,0 +1,39 @@
+
+<div *ngIf="i2cController">
+    <h2><span jhiTranslate="raspianoApp.i2cController.detail.title">I 2 C Controller</span> {{i2cController.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="raspianoApp.i2cController.controllerType">Controller Type</span></dt>
+        <dd>
+            <span jhiTranslate="{{'raspianoApp.ControllerType.' + i2cController.controllerType}}">{{i2cController.controllerType}}</span>
+        </dd>
+        <dt><span jhiTranslate="raspianoApp.i2cController.turnOffDelayMs">Turn Off Delay Ms</span></dt>
+        <dd>
+            <span>{{i2cController.turnOffDelayMs}}</span>
+        </dd>
+        <dt><span jhiTranslate="raspianoApp.i2cController.turnOnDelayMs">Turn On Delay Ms</span></dt>
+        <dd>
+            <span>{{i2cController.turnOnDelayMs}}</span>
+        </dd>
+        <dt><span jhiTranslate="raspianoApp.i2cController.device">Device</span></dt>
+        <dd>
+            <div *ngIf="i2cController.deviceId">
+                <a [routerLink]="['/i-2-c-device', i2cController.deviceId]">{{i2cController.deviceId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'i-2-c-controller/'+ i2cController.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

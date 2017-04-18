@@ -4,6 +4,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -24,6 +25,11 @@ public class Raspberry implements Serializable {
     @Column(name = "name")
     private String name;
 
+    @OneToOne(optional = false)
+    @NotNull
+    @JoinColumn(unique = true)
+    private Climate climate;
+
     public Long getId() {
         return id;
     }
@@ -43,6 +49,19 @@ public class Raspberry implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Climate getClimate() {
+        return climate;
+    }
+
+    public Raspberry climate(Climate climate) {
+        this.climate = climate;
+        return this;
+    }
+
+    public void setClimate(Climate climate) {
+        this.climate = climate;
     }
 
     @Override

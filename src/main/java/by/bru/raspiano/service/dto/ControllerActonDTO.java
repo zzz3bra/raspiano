@@ -2,6 +2,7 @@ package by.bru.raspiano.service.dto;
 
 
 import java.time.ZonedDateTime;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,13 +15,15 @@ public class ControllerActonDTO implements Serializable {
 
     private Long id;
 
+    @NotNull
     private ZonedDateTime actionStart;
 
+    @NotNull
     private ZonedDateTime actionEnd;
 
     private Long controllerId;
 
-    private Long actionHistoryId;
+    private Long climateId;
 
     public Long getId() {
         return id;
@@ -52,12 +55,12 @@ public class ControllerActonDTO implements Serializable {
         this.controllerId = i2cControllerId;
     }
 
-    public Long getActionHistoryId() {
-        return actionHistoryId;
+    public Long getClimateId() {
+        return climateId;
     }
 
-    public void setActionHistoryId(Long climateId) {
-        this.actionHistoryId = climateId;
+    public void setClimateId(Long climateId) {
+        this.climateId = climateId;
     }
 
     @Override

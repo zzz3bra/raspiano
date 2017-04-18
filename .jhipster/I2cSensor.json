@@ -1,11 +1,22 @@
 {
     "fluentMethods": true,
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "device",
+            "otherEntityName": "i2cDevice",
+            "otherEntityField": "id"
+        }
+    ],
     "fields": [
         {
             "fieldName": "sensorType",
             "fieldType": "SensorType",
-            "fieldValues": "TEMPERATURE,HUMIDITY"
+            "fieldValues": "TEMPERATURE,HUMIDITY",
+            "fieldValidateRules": [
+                "required"
+            ]
         },
         {
             "fieldName": "minSensivity",
@@ -20,6 +31,5 @@
     "entityTableName": "i_2_c_sensor",
     "dto": "mapstruct",
     "pagination": "no",
-    "service": "serviceImpl",
-    "angularJSSuffix": "mySuffix"
+    "service": "serviceImpl"
 }

@@ -3,6 +3,8 @@ package by.bru.raspiano.web.rest;
 import by.bru.raspiano.RaspianoApp;
 
 import by.bru.raspiano.domain.ControllerActon;
+import by.bru.raspiano.domain.I2cController;
+import by.bru.raspiano.domain.Climate;
 import by.bru.raspiano.repository.ControllerActonRepository;
 import by.bru.raspiano.service.ControllerActonService;
 import by.bru.raspiano.service.dto.ControllerActonDTO;
@@ -96,6 +98,16 @@ public class ControllerActonResourceIntTest {
         ControllerActon controllerActon = new ControllerActon()
             .actionStart(DEFAULT_ACTION_START)
             .actionEnd(DEFAULT_ACTION_END);
+        // Add required entity
+        I2cController controller = I2cControllerResourceIntTest.createEntity(em);
+        em.persist(controller);
+        em.flush();
+        controllerActon.setController(controller);
+        // Add required entity
+        Climate climate = ClimateResourceIntTest.createEntity(em);
+        em.persist(climate);
+        em.flush();
+        controllerActon.setClimate(climate);
         return controllerActon;
     }
 
@@ -142,6 +154,44 @@ public class ControllerActonResourceIntTest {
         // Validate the Alice in the database
         List<ControllerActon> controllerActonList = controllerActonRepository.findAll();
         assertThat(controllerActonList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    @Transactional
+    public void checkActionStartIsRequired() throws Exception {
+        int databaseSizeBeforeTest = controllerActonRepository.findAll().size();
+        // set the field null
+        controllerActon.setActionStart(null);
+
+        // Create the ControllerActon, which fails.
+        ControllerActonDTO controllerActonDTO = controllerActonMapper.controllerActonToControllerActonDTO(controllerActon);
+
+        restControllerActonMockMvc.perform(post("/api/controller-actons")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(controllerActonDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<ControllerActon> controllerActonList = controllerActonRepository.findAll();
+        assertThat(controllerActonList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkActionEndIsRequired() throws Exception {
+        int databaseSizeBeforeTest = controllerActonRepository.findAll().size();
+        // set the field null
+        controllerActon.setActionEnd(null);
+
+        // Create the ControllerActon, which fails.
+        ControllerActonDTO controllerActonDTO = controllerActonMapper.controllerActonToControllerActonDTO(controllerActon);
+
+        restControllerActonMockMvc.perform(post("/api/controller-actons")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(controllerActonDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<ControllerActon> controllerActonList = controllerActonRepository.findAll();
+        assertThat(controllerActonList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test

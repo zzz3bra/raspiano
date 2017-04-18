@@ -3,13 +3,15 @@
     "relationships": [
         {
             "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
             "relationshipName": "source",
             "otherEntityName": "i2cSensor",
             "otherEntityField": "id"
         },
         {
             "relationshipType": "many-to-one",
-            "relationshipName": "dataHistory",
+            "relationshipValidateRules": "required",
+            "relationshipName": "climate",
             "otherEntityName": "climate",
             "otherEntityField": "id"
         }
@@ -28,6 +30,5 @@
     "entityTableName": "measurement",
     "dto": "mapstruct",
     "pagination": "no",
-    "service": "serviceImpl",
-    "angularJSSuffix": "mySuffix"
+    "service": "serviceImpl"
 }

@@ -3,6 +3,7 @@
     "relationships": [
         {
             "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
             "relationshipName": "device",
             "otherEntityName": "raspberry",
             "otherEntityField": "id"
@@ -12,7 +13,10 @@
         {
             "fieldName": "deviceType",
             "fieldType": "DeviceType",
-            "fieldValues": "SENSOR,CONTROLLER"
+            "fieldValues": "SENSOR,CONTROLLER",
+            "fieldValidateRules": [
+                "required"
+            ]
         },
         {
             "fieldName": "busAddress",
@@ -27,6 +31,5 @@
     "entityTableName": "i_2_c_device",
     "dto": "mapstruct",
     "pagination": "no",
-    "service": "serviceImpl",
-    "angularJSSuffix": "mySuffix"
+    "service": "serviceImpl"
 }

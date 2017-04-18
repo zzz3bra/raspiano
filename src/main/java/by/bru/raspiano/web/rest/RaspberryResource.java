@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.LinkedList;
@@ -43,7 +44,7 @@ public class RaspberryResource {
      */
     @PostMapping("/raspberries")
     @Timed
-    public ResponseEntity<RaspberryDTO> createRaspberry(@RequestBody RaspberryDTO raspberryDTO) throws URISyntaxException {
+    public ResponseEntity<RaspberryDTO> createRaspberry(@Valid @RequestBody RaspberryDTO raspberryDTO) throws URISyntaxException {
         log.debug("REST request to save Raspberry : {}", raspberryDTO);
         if (raspberryDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new raspberry cannot already have an ID")).body(null);
@@ -65,7 +66,7 @@ public class RaspberryResource {
      */
     @PutMapping("/raspberries")
     @Timed
-    public ResponseEntity<RaspberryDTO> updateRaspberry(@RequestBody RaspberryDTO raspberryDTO) throws URISyntaxException {
+    public ResponseEntity<RaspberryDTO> updateRaspberry(@Valid @RequestBody RaspberryDTO raspberryDTO) throws URISyntaxException {
         log.debug("REST request to update Raspberry : {}", raspberryDTO);
         if (raspberryDTO.getId() == null) {
             return createRaspberry(raspberryDTO);

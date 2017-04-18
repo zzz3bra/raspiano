@@ -1,0 +1,41 @@
+
+<div *ngIf="measurement">
+    <h2><span jhiTranslate="raspianoApp.measurement.detail.title">Measurement</span> {{measurement.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="raspianoApp.measurement.dateTime">Date Time</span></dt>
+        <dd>
+            <span>{{measurement.dateTime | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="raspianoApp.measurement.value">Value</span></dt>
+        <dd>
+            <span>{{measurement.value}}</span>
+        </dd>
+        <dt><span jhiTranslate="raspianoApp.measurement.source">Source</span></dt>
+        <dd>
+            <div *ngIf="measurement.sourceId">
+                <a [routerLink]="['/i-2-c-sensor', measurement.sourceId]">{{measurement.sourceId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="raspianoApp.measurement.climate">Climate</span></dt>
+        <dd>
+            <div *ngIf="measurement.climateId">
+                <a [routerLink]="['/climate', measurement.climateId]">{{measurement.climateId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'measurement/'+ measurement.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.LinkedList;
@@ -43,7 +44,7 @@ public class I2cControllerResource {
      */
     @PostMapping("/i-2-c-controllers")
     @Timed
-    public ResponseEntity<I2cControllerDTO> createI2cController(@RequestBody I2cControllerDTO i2cControllerDTO) throws URISyntaxException {
+    public ResponseEntity<I2cControllerDTO> createI2cController(@Valid @RequestBody I2cControllerDTO i2cControllerDTO) throws URISyntaxException {
         log.debug("REST request to save I2cController : {}", i2cControllerDTO);
         if (i2cControllerDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new i2cController cannot already have an ID")).body(null);
@@ -65,7 +66,7 @@ public class I2cControllerResource {
      */
     @PutMapping("/i-2-c-controllers")
     @Timed
-    public ResponseEntity<I2cControllerDTO> updateI2cController(@RequestBody I2cControllerDTO i2cControllerDTO) throws URISyntaxException {
+    public ResponseEntity<I2cControllerDTO> updateI2cController(@Valid @RequestBody I2cControllerDTO i2cControllerDTO) throws URISyntaxException {
         log.debug("REST request to update I2cController : {}", i2cControllerDTO);
         if (i2cControllerDTO.getId() == null) {
             return createI2cController(i2cControllerDTO);

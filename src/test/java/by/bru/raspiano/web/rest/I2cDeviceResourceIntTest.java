@@ -3,6 +3,7 @@ package by.bru.raspiano.web.rest;
 import by.bru.raspiano.RaspianoApp;
 
 import by.bru.raspiano.domain.I2cDevice;
+import by.bru.raspiano.domain.Raspberry;
 import by.bru.raspiano.repository.I2cDeviceRepository;
 import by.bru.raspiano.service.I2cDeviceService;
 import by.bru.raspiano.service.dto.I2cDeviceDTO;
@@ -96,6 +97,11 @@ public class I2cDeviceResourceIntTest {
             .deviceType(DEFAULT_DEVICE_TYPE)
             .busAddress(DEFAULT_BUS_ADDRESS)
             .name(DEFAULT_NAME);
+        // Add required entity
+        Raspberry device = RaspberryResourceIntTest.createEntity(em);
+        em.persist(device);
+        em.flush();
+        i2cDevice.setDevice(device);
         return i2cDevice;
     }
 
@@ -143,6 +149,25 @@ public class I2cDeviceResourceIntTest {
         // Validate the Alice in the database
         List<I2cDevice> i2cDeviceList = i2cDeviceRepository.findAll();
         assertThat(i2cDeviceList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    @Transactional
+    public void checkDeviceTypeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = i2cDeviceRepository.findAll().size();
+        // set the field null
+        i2cDevice.setDeviceType(null);
+
+        // Create the I2cDevice, which fails.
+        I2cDeviceDTO i2cDeviceDTO = i2cDeviceMapper.i2cDeviceToI2cDeviceDTO(i2cDevice);
+
+        restI2cDeviceMockMvc.perform(post("/api/i-2-c-devices")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(i2cDeviceDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<I2cDevice> i2cDeviceList = i2cDeviceRepository.findAll();
+        assertThat(i2cDeviceList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test

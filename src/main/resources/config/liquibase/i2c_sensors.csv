@@ -1,0 +1,3 @@
+id;sensor_type;min_sensivity;max_sensivity;device_id
+1;TEMPERATURE;-40;125;1
+2;HUMIDITY;0;100;1

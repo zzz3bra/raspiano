@@ -4,6 +4,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -23,8 +24,9 @@ public class I2cController implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "controller_type")
+    @Column(name = "controller_type", nullable = false)
     private ControllerType controllerType;
 
     @Column(name = "turn_off_delay_ms")
@@ -32,6 +34,10 @@ public class I2cController implements Serializable {
 
     @Column(name = "turn_on_delay_ms")
     private Integer turnOnDelayMs;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    private I2cDevice device;
 
     public Long getId() {
         return id;
@@ -78,6 +84,19 @@ public class I2cController implements Serializable {
 
     public void setTurnOnDelayMs(Integer turnOnDelayMs) {
         this.turnOnDelayMs = turnOnDelayMs;
+    }
+
+    public I2cDevice getDevice() {
+        return device;
+    }
+
+    public I2cController device(I2cDevice i2cDevice) {
+        this.device = i2cDevice;
+        return this;
+    }
+
+    public void setDevice(I2cDevice i2cDevice) {
+        this.device = i2cDevice;
     }
 
     @Override

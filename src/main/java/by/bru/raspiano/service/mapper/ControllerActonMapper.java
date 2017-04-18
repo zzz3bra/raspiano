@@ -13,13 +13,13 @@ import java.util.List;
 public interface ControllerActonMapper {
 
     @Mapping(source = "controller.id", target = "controllerId")
-    @Mapping(source = "actionHistory.id", target = "actionHistoryId")
+    @Mapping(source = "climate.id", target = "climateId")
     ControllerActonDTO controllerActonToControllerActonDTO(ControllerActon controllerActon);
 
     List<ControllerActonDTO> controllerActonsToControllerActonDTOs(List<ControllerActon> controllerActons);
 
     @Mapping(source = "controllerId", target = "controller")
-    @Mapping(source = "actionHistoryId", target = "actionHistory")
+    @Mapping(source = "climateId", target = "climate")
     ControllerActon controllerActonDTOToControllerActon(ControllerActonDTO controllerActonDTO);
 
     List<ControllerActon> controllerActonDTOsToControllerActons(List<ControllerActonDTO> controllerActonDTOs);

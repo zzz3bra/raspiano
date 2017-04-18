@@ -14,9 +14,9 @@
                                  referencedColumnNames="id"
                                  referencedTableName="i_2_c_controller"/>
 
-        <addForeignKeyConstraint baseColumnNames="action_history_id"
+        <addForeignKeyConstraint baseColumnNames="climate_id"
                                  baseTableName="controller_acton"
-                                 constraintName="fk_controller_acton_action_history_id"
+                                 constraintName="fk_controller_acton_climate_id"
                                  referencedColumnNames="id"
                                  referencedTableName="climate"/>
 
