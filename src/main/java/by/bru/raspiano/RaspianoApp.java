@@ -2,6 +2,8 @@ package by.bru.raspiano;
 
 import by.bru.raspiano.config.ApplicationProperties;
 import by.bru.raspiano.config.DefaultProfileUtil;
+import by.bru.raspiano.service.RaspberryCommunicationService;
+import by.bru.raspiano.service.dto.I2cSensorDTO;
 import io.github.jhipster.config.JHipsterConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,6 +65,11 @@ public class RaspianoApp {
         SpringApplication app = new SpringApplication(RaspianoApp.class);
         DefaultProfileUtil.addDefaultProfile(app);
         Environment env = app.run(args).getEnvironment();
+
+        RaspberryCommunicationService communicationService = ApplicationContextProvider.getBean("raspberryCommunicationService", RaspberryCommunicationService.class);
+        communicationService.addSensors(new I2cSensorDTO());
+        communicationService.startMeasurements();
+
         String protocol = "http";
         if (env.getProperty("server.ssl.key-store") != null) {
             protocol = "https";
