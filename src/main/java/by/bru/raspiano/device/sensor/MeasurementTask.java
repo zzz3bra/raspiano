@@ -1,6 +1,8 @@
 package by.bru.raspiano.device.sensor;
 
 import by.bru.raspiano.device.sensor.sht21.*;
+import by.bru.raspiano.domain.enumeration.SensorType;
+import by.bru.raspiano.service.dto.I2cSensorDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +16,6 @@ import java.util.concurrent.TimeUnit;
 /**
  * Task that periodically executes the temperature and
  * humidity measurements.
- *
  */
 public final class MeasurementTask {
 
@@ -76,20 +77,26 @@ public final class MeasurementTask {
     private void initializeAndStart() {
 
         final TimerTask action = new TimerTask() {
+            I2cSensorDTO tempSensor = sht21.getSensors().stream()
+                .filter(sensor -> sensor.getSensorType().equals(SensorType.TEMPERATURE)).findFirst().get();
+            I2cSensorDTO humiditySensor = sht21.getSensors().stream()
+                .filter(sensor -> sensor.getSensorType().equals(SensorType.HUMIDITY)).findFirst().get();
+
             @Override
             public void run() {
-                LOG.info("Starting measurements");
+                LOG.debug("Starting SHT-21 measurements");
                 final HeaterStatus heaterStatus = sht21.getHeaterStatus();
                 final EndOfBatteryAlert endOfBatteryAlert = sht21.getEndOfBatteryAlert();
 
                 try {
-                    final Measurement measurement = sht21.measurePoll(MeasureType.TEMPERATURE);
-                    final Measurement measurement1 = sht21.measurePoll(MeasureType.HUMIDITY);
+                    final Measurement tempMeasurement = sht21.measurePoll(MeasureType.TEMPERATURE);
+                    final Measurement humidityMeasurement = sht21.measurePoll(MeasureType.HUMIDITY);
                     final Resolution resolution = sht21.getResolution();
-                    MeasurementTask.this.latestStatus = SHT21Status.create(heaterStatus, endOfBatteryAlert, measurement, measurement1, resolution);
+                    MeasurementTask.this.latestStatus = SHT21Status.create(heaterStatus, endOfBatteryAlert,
+                        tempMeasurement, humidityMeasurement, resolution);
                     for (final MeasurementTaskListener listener : listeners) {
-                        listener.onReceived(measurement);
-                        listener.onReceived(measurement1);
+                        listener.onReceived(tempMeasurement, tempSensor);
+                        listener.onReceived(humidityMeasurement, humiditySensor);
                     }
                 } catch (final UnsupportedMeasureTypeException exception) {
                     LOG.error(exception.getMessage(), exception);

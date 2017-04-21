@@ -3,6 +3,9 @@ package by.bru.raspiano.device.sensor.sht21;
 import by.bru.raspiano.device.sensor.MeasureType;
 import by.bru.raspiano.device.sensor.Measurement;
 import by.bru.raspiano.device.sensor.UnsupportedMeasureTypeException;
+import by.bru.raspiano.service.dto.I2cSensorDTO;
+
+import java.util.List;
 
 /**
  * @author Stefan Freitag
@@ -48,5 +51,12 @@ public interface SHT21 {
      * @throws UnsupportedMeasureTypeException if an unsupported measure type was specified.
      */
     Measurement measurePoll(MeasureType measureType) throws UnsupportedMeasureTypeException;
+
+    /**
+     * Return the database representation of hardware sensors.
+     *
+     * @return Present {@link I2cSensorDTO}.
+     */
+    List<I2cSensorDTO> getSensors();
 
 }

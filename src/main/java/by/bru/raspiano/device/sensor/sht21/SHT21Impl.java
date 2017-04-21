@@ -3,6 +3,8 @@ package by.bru.raspiano.device.sensor.sht21;
 import by.bru.raspiano.device.sensor.MeasureType;
 import by.bru.raspiano.device.sensor.Measurement;
 import by.bru.raspiano.device.sensor.UnsupportedMeasureTypeException;
+import by.bru.raspiano.service.dto.I2cSensorDTO;
+import com.google.common.collect.Lists;
 import com.pi4j.io.i2c.I2CBus;
 import com.pi4j.io.i2c.I2CDevice;
 import com.pi4j.io.i2c.I2CFactory;
@@ -12,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -27,20 +30,29 @@ public final class SHT21Impl implements SHT21 {
     private I2CDevice device;
 
     /**
+     * The SHT21 can provide abstraction for multiple hardware sensors.
+     */
+    private List<I2cSensorDTO> i2cSensors;
+
+    /**
      * Creates a new SHT21 device.
      *
      * @param bus     The I2C bus number, either 0 or 1.
      * @param address Address of the device on the I2C bus.
+     * @param sensors Domain sensor representation.
      */
-    private SHT21Impl(final int bus, final int address) {
+    private SHT21Impl(final int bus, final int address, final I2cSensorDTO... sensors) {
         try {
             final I2CBus i2CBus;
             if (bus == 0) {
                 i2CBus = I2CFactory.getInstance(I2CBus.BUS_0);
-            } else {
+            } else if (bus == 1) {
                 i2CBus = I2CFactory.getInstance(I2CBus.BUS_1);
+            } else {
+                throw new I2CFactory.UnsupportedBusNumberException();
             }
             this.device = i2CBus.getDevice(address);
+            this.i2cSensors = Lists.newArrayList(sensors);
         } catch (final I2CFactory.UnsupportedBusNumberException | IOException exception) {
             this.device = null;
             log.error(exception.getMessage(), exception);
@@ -52,14 +64,14 @@ public final class SHT21Impl implements SHT21 {
      *
      * @param bus     The I2C bus number, either 0 or 1.
      * @param address Address of the device on the I2C bus.
+     * @param sensors Domain sensor representation.
      * @return The new SHT21 device
      */
-    public static SHT21Impl create(final int bus, final int address) {
+    public static SHT21Impl create(final int bus, final int address, final I2cSensorDTO... sensors) {
         if (bus < 0 || bus > 1) {
             throw new IllegalArgumentException("Bus not valid.");
         }
-        return new SHT21Impl(bus, address);
-
+        return new SHT21Impl(bus, address, sensors);
     }
 
     /**
@@ -223,6 +235,11 @@ public final class SHT21Impl implements SHT21 {
             default:
                 throw new UnsupportedMeasureTypeException("MeasureType not supported: " + measureType);
         }
+    }
+
+    @Override
+    public List<I2cSensorDTO> getSensors() {
+        return i2cSensors;
     }
 
     private float measurePollTemperature() {

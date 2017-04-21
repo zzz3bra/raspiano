@@ -2,7 +2,8 @@ package by.bru.raspiano.device.sensor.sht21;
 
 import by.bru.raspiano.device.sensor.MeasureType;
 import by.bru.raspiano.device.sensor.Measurement;
-
+import by.bru.raspiano.service.dto.I2cSensorDTO;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -12,6 +13,19 @@ public final class SHT21DummyImpl implements SHT21 {
 
     private static final Random RAND = new Random();
 
+    /**
+     * The SHT21 can provide abstraction for multiple hardware sensors.
+     */
+    private List<I2cSensorDTO> i2cSensors;
+
+    private SHT21DummyImpl(final int bus, final int address, final List<I2cSensorDTO> sensors) {
+        this.i2cSensors = sensors;
+    }
+
+    public static SHT21DummyImpl create(final int bus, final int address, final List<I2cSensorDTO> sensors) {
+        return new SHT21DummyImpl(bus, address, sensors);
+
+    }
 
     /**
      * Return the present resolution (in bits) for temperature and humidity measurement.
@@ -62,5 +76,10 @@ public final class SHT21DummyImpl implements SHT21 {
             throw new IllegalArgumentException(MeasureType.class.getSimpleName() + " is null");
         }
         return Measurement.create(Math.abs(RAND.nextFloat()), measureType);
+    }
+
+    @Override
+    public List<I2cSensorDTO> getSensors() {
+        return i2cSensors;
     }
 }

@@ -66,9 +66,9 @@ public class RaspianoApp {
         DefaultProfileUtil.addDefaultProfile(app);
         Environment env = app.run(args).getEnvironment();
 
-        RaspberryCommunicationService communicationService = ApplicationContextProvider.getBean("raspberryCommunicationService", RaspberryCommunicationService.class);
-        communicationService.addSensors(new I2cSensorDTO());
-        communicationService.startMeasurements();
+        ApplicationContextProvider
+            .getBean("raspberryCommunicationService", RaspberryCommunicationService.class)
+            .startMeasurements();
 
         String protocol = "http";
         if (env.getProperty("server.ssl.key-store") != null) {
